@@ -254,23 +254,24 @@
     .topic-title { font-size: .9rem; font-weight: 600; color: var(--dark); margin-bottom: .3rem; }
     .topic-desc { font-size: .82rem; color: var(--mid); line-height: 1.65; }
     /* ══ APPLY ══ */
-    #contact { padding: var(--py) var(--px); background: var(--dark); color: #fff; }
+    #contact { padding: var(--py) var(--px); background: var(--bg); color: var(--dark); }
     #contact .section-tag { border-color: rgba(139,168,136,.3); color: var(--green); }
-    #contact .section-title { color: #fff; }
-    #contact .section-sub { color: rgba(255,255,255,.55); }
+    #contact .section-title { color: var(--dark); }
+    #contact .section-sub { color: var(--mid); }
     .apply-cta { text-align: center; margin-top: 3rem; }
-    .apply-cta-notice { font-size: .95rem; color: rgba(255,255,255,.55); letter-spacing: .02em; }
+    .apply-cta-notice { font-size: .95rem; color: var(--mid); letter-spacing: .02em; }
     .form-submit { display: inline-block; padding: 1rem 3rem; background: var(--grad); color: #fff; border: none; border-radius: 50px; font-family: inherit; font-size: 1rem; font-weight: 700; cursor: pointer; transition: opacity .2s, transform .2s; box-shadow: 0 6px 24px rgba(139,168,136,.3); }
     .form-submit:hover { opacity: .88; transform: translateY(-2px); }
     /* ══ FOOTER ══ */
-    footer { background: #3D2E2A; color: rgba(255,255,255,.5); padding: 3rem var(--px); }
+    footer { background: #3D2E2A; color: rgba(255,255,255,.5); padding: 0 var(--px) 2rem; }
     .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 3rem; margin-bottom: 2.5rem; }
     .footer-brand img { height: 36px; width: auto; margin-bottom: 1rem; }
     .footer-brand p { font-size: .85rem; line-height: 1.75; color: rgba(255,255,255,.4); }
     .footer-col h4 { font-size: .82rem; font-weight: 700; letter-spacing: .1em; color: rgba(255,255,255,.7); margin-bottom: .9rem; }
     .footer-col a, .footer-col p { display: block; font-size: .82rem; color: rgba(255,255,255,.4); text-decoration: none; padding: .25rem 0; transition: color .2s; }
     .footer-col a:hover { color: var(--green); }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: .78rem; }
+    .footer-bottom { padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: .78rem; }
+    .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,.1); margin: 0 calc(-1 * var(--px)); }
     /* ══ RESPONSIVE ══ */
     @media (max-width: 1100px) {
       .practice-grid { grid-template-columns: repeat(2,1fr); }
@@ -680,63 +681,51 @@
   </div>
 </section>
 <!-- ══ APPLY ══ -->
-<section id="contact" style="background:var(--dark);">
+<section id="contact" style="background:var(--bg);">
   <div class="reveal">
     <span class="section-tag">Apply</span>
-    <h2 class="section-title">수강 신청</h2>
-    <p class="section-sub">2026년 9월 코스 수강 신청을 받고 있습니다.</p>
+    <h2 class="section-title">상담 신청</h2>
   </div>
   <div class="reveal" style="margin-top:2.5rem;margin-bottom:2.5rem;max-width:480px;">
     <div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:.8rem;margin-bottom:.2rem;">
-      <span style="font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);">수강료 안내</span>
-      <span style="font-size:.78rem;color:rgba(255,255,255,.25);">정원 16명</span>
+      <span style="font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);">수강료 안내</span>
+      <span style="font-size:.78rem;color:var(--light);">정원 16명</span>
     </div>
-    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid rgba(255,255,255,.08);">
-      <span style="font-size:.9rem;color:rgba(255,255,255,.5);">접수비</span>
-      <span style="font-size:.95rem;color:rgba(255,255,255,.85);">100,000원 <span style="font-size:.78rem;color:rgba(255,255,255,.3);">(환불 불가)</span></span>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--border);">
+      <span style="font-size:.9rem;color:var(--mid);">접수비</span>
+      <span style="font-size:.95rem;color:var(--dark);">100,000원 <span style="font-size:.78rem;color:var(--light);">(환불 불가)</span></span>
     </div>
-    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid rgba(255,255,255,.08);">
-      <span style="font-size:.9rem;color:rgba(255,255,255,.5);">등록금</span>
-      <span style="font-size:.95rem;color:rgba(255,255,255,.85);">3,300,000원 <span style="font-size:.78rem;color:rgba(255,255,255,.3);">(부가세 포함)</span></span>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--border);">
+      <span style="font-size:.9rem;color:var(--mid);">등록금</span>
+      <span style="font-size:.95rem;color:var(--dark);">3,300,000원 <span style="font-size:.78rem;color:var(--light);">(부가세 포함)</span></span>
     </div>
-    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid rgba(255,255,255,.08);">
-      <span style="font-size:.9rem;color:rgba(255,255,255,.5);">조기 등록</span>
-      <span style="font-size:.95rem;color:rgba(255,255,255,.85);">3,000,000원 <span style="font-size:.78rem;color:#8BA888;font-weight:600;">10% 할인</span> <span style="font-size:.78rem;color:rgba(255,255,255,.3);">(부가세 포함)</span></span>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--border);">
+      <span style="font-size:.9rem;color:var(--mid);">조기 등록</span>
+      <span style="font-size:.95rem;color:var(--dark);">3,000,000원 <span style="font-size:.78rem;color:#8BA888;font-weight:600;">10% 할인</span> <span style="font-size:.78rem;color:var(--light);">(부가세 포함)</span></span>
     </div>
-    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);">
-      <span style="font-size:.9rem;color:rgba(255,255,255,.5);">세그별 등록</span>
-      <span style="font-size:.95rem;color:rgba(255,255,255,.85);">1,980,000원 <span style="font-size:.78rem;color:rgba(255,255,255,.3);">(부가세 포함)</span></span>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+      <span style="font-size:.9rem;color:var(--mid);">세그별 등록</span>
+      <span style="font-size:.95rem;color:var(--dark);">1,980,000원 <span style="font-size:.78rem;color:var(--light);">(부가세 포함)</span></span>
     </div>
   </div>
   <div class="apply-cta reveal">
-    <p class="apply-cta-notice">수강 신청은 사전 상담을 통해 진행됩니다.</p>
-    <a href="apply.html" class="form-submit" style="display:inline-block;text-align:center;text-decoration:none;padding:1.1rem 3.5rem;margin-top:1.5rem;">수강 신청하기</a>
+    <p class="apply-cta-notice">상담 신청은 사전 상담을 통해 진행됩니다.</p>
+    <a href="apply.html" class="form-submit" style="display:inline-block;text-align:center;text-decoration:none;padding:1.1rem 3.5rem;margin-top:1.5rem;">상담 신청하기</a>
   </div>
 </section>
 <!-- ══ FOOTER ══ -->
 <footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <img src="ari-logo.png" alt="ARI">
-      <p>감각인지기반 움직임 전문가 과정<br>자기돌봄 · 자기치유 · 자기배움 · 자기발견</p>
+  <hr class="footer-divider">
+  <div class="footer-bottom" style="flex-direction:column;align-items:flex-start;gap:.5rem;">
+    <div style="display:flex;flex-wrap:wrap;gap:1.5rem;font-size:.78rem;color:rgba(255,255,255,.35);line-height:1.8;">
+      <span>상호명: Felden · JKA MOVE</span>
+      <span>대표자: 김윤진</span>
+      <span>사업자등록번호: 702-17-01587</span>
+      <span>주소: 서울특별시 강남구 언주로157길 13 3층</span>
+      <span>이메일: <a href="mailto:ari.embodiedselfcare@gmail.com" style="color:rgba(255,255,255,.35);text-decoration:none;">ari.embodiedselfcare@gmail.com</a></span>
+      <span>전화: <a href="tel:01045257366" style="color:rgba(255,255,255,.35);text-decoration:none;">010-4525-7366</a></span>
     </div>
-    <div class="footer-col">
-      <h4>Navigation</h4>
-      <a href="#about">About</a>
-      <a href="#programs">Program</a>
-      <a href="#curriculum">Curriculum</a>
-      <a href="#contact">Apply</a>
-    </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <p>펠든크라이스 무브</p>
-      <p>서울 압구정동</p>
-      <a href="#contact">문의하기</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 ARI 아리. All rights reserved.</span>
-    <span>자기돌봄 움직임 전문가 과정</span>
+    <span style="font-size:.75rem;color:rgba(255,255,255,.2);">© 2026 ARI 아리. All rights reserved.</span>
   </div>
 </footer>
 <script>
