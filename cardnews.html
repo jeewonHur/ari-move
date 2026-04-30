@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARI 아리 | 카드뉴스</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --grad: linear-gradient(135deg, #3D4C6F 0%, #6B9E7A 35%, #B8B040 70%, #D4CA6A 100%);
+      --grad-vivid: linear-gradient(145deg, #2E3D5C 0%, #5A8A6A 30%, #C8BE5A 65%, #E0D070 100%);
+      --white: #FFFFFF;
+      --white-70: rgba(255,255,255,.72);
+      --white-50: rgba(255,255,255,.5);
+      --white-30: rgba(255,255,255,.3);
+      --white-15: rgba(255,255,255,.15);
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #1a1f2e;
+      color: #fff;
+      padding: 3rem 2rem;
+      line-height: 1.6;
+    }
+
+    /* ── Page Header ── */
+    .page-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .page-header h1 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #D4CA6A;
+      margin-bottom: .5rem;
+    }
+    .page-header p {
+      font-size: .88rem;
+      color: rgba(255,255,255,.5);
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 2.5rem;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    /* ── Card ── */
+    .card {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      background: var(--grad);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2.4rem 2.2rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+
+    /* Decorative lines */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: rgba(255,255,255,.55);
+    }
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: rgba(255,255,255,.55);
+    }
+
+    .card-inner-line-top {
+      position: absolute;
+      top: 18px; left: 2.2rem; right: 2.2rem;
+      height: 1px;
+      background: rgba(255,255,255,.28);
+    }
+    .card-inner-line-bottom {
+      position: absolute;
+      bottom: 18px; left: 2.2rem; right: 2.2rem;
+      height: 1px;
+      background: rgba(255,255,255,.28);
+    }
+
+    /* Card number badge */
+    .card-num {
+      position: absolute;
+      top: 1.3rem; right: 1.8rem;
+      font-size: .72rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.45);
+      letter-spacing: .1em;
+    }
+
+    /* ── Card Content ── */
+    .card-top { position: relative; z-index: 1; }
+    .card-bottom { position: relative; z-index: 1; }
+    .card-mid { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+    /* Logo area */
+    .card-logo {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      margin-bottom: .3rem;
+    }
+    .card-logo img {
+      height: 36px;
+      width: auto;
+      filter: brightness(0) invert(1);
+      object-fit: contain;
+    }
+    .card-logo-fallback {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .04em;
+    }
+    .card-logo-sub {
+      font-size: .65rem;
+      color: rgba(255,255,255,.6);
+      letter-spacing: .06em;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    /* Tag */
+    .card-tag {
+      display: inline-block;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.65);
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 50px;
+      padding: .22rem .75rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Headline */
+    .card-headline {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(1.4rem, 4vw, 1.9rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: .6rem;
+      word-break: keep-all;
+    }
+    .card-headline.large {
+      font-size: clamp(2rem, 6vw, 2.8rem);
+    }
+    .card-headline.small {
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+    }
+
+    /* Sub-headline */
+    .card-sub {
+      font-size: .88rem;
+      color: rgba(255,255,255,.7);
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+
+    /* Divider */
+    .card-divider {
+      width: 36px;
+      height: 2px;
+      background: rgba(255,255,255,.5);
+      margin: 1rem 0;
+    }
+
+    /* List */
+    .card-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .45rem;
+    }
+    .card-list li {
+      font-size: .82rem;
+      color: rgba(255,255,255,.82);
+      display: flex;
+      gap: .55rem;
+      align-items: flex-start;
+      line-height: 1.6;
+    }
+    .card-list li .dot {
+      color: #D4CA6A;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: .1rem;
+    }
+
+    /* ARI acronym row */
+    .ari-row {
+      display: flex;
+      flex-direction: column;
+      gap: .9rem;
+    }
+    .ari-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .ari-letter {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+      flex-shrink: 0;
+      width: 40px;
+    }
+    .ari-text {}
+    .ari-en {
+      font-size: .92rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .03em;
+    }
+    .ari-kr {
+      font-size: .78rem;
+      color: rgba(255,255,255,.6);
+      margin-top: .12rem;
+    }
+
+    /* Quote block */
+    .quote-block {
+      border-left: 3px solid rgba(255,255,255,.5);
+      padding: .8rem 1.2rem;
+      background: rgba(255,255,255,.1);
+      border-radius: 0 12px 12px 0;
+      margin: .8rem 0;
+    }
+    .quote-text {
+      font-family: 'Noto Serif KR', serif;
+      font-size: .95rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.65;
+      margin-bottom: .3rem;
+      font-style: italic;
+    }
+    .quote-author {
+      font-size: .72rem;
+      color: rgba(255,255,255,.5);
+      letter-spacing: .06em;
+    }
+
+    /* Price row */
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .65rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.18);
+    }
+    .price-row:last-child { border-bottom: none; }
+    .price-label {
+      font-size: .8rem;
+      color: rgba(255,255,255,.65);
+    }
+    .price-val {
+      font-size: .9rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .price-note {
+      font-size: .7rem;
+      color: rgba(255,255,255,.45);
+      font-weight: 400;
+      margin-top: .1rem;
+      text-align: right;
+    }
+    .price-highlight {
+      color: #D4CA6A;
+    }
+
+    /* Schedule row */
+    .sched-block {
+      background: rgba(255,255,255,.1);
+      border-radius: 10px;
+      padding: .9rem 1.1rem;
+      margin-bottom: .6rem;
+    }
+    .sched-title {
+      font-size: .8rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: .35rem;
+      letter-spacing: .04em;
+    }
+    .sched-dates {
+      font-size: .75rem;
+      color: rgba(255,255,255,.65);
+      line-height: 1.7;
+    }
+
+    /* Recommend item */
+    .rec-item {
+      display: flex;
+      gap: .6rem;
+      align-items: flex-start;
+      padding: .55rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+    .rec-item:last-child { border-bottom: none; }
+    .rec-check { color: #D4CA6A; font-weight: 700; flex-shrink: 0; font-size: .95rem; }
+    .rec-text { font-size: .8rem; color: rgba(255,255,255,.82); line-height: 1.6; word-break: keep-all; }
+
+    /* Founder card */
+    .founder-name-big {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: .3rem;
+    }
+    .founder-role-tag {
+      font-size: .72rem;
+      color: rgba(255,255,255,.6);
+      line-height: 1.7;
+      margin-bottom: .6rem;
+    }
+    .founder-story {
+      font-size: .78rem;
+      color: rgba(255,255,255,.72);
+      line-height: 1.85;
+      word-break: keep-all;
+    }
+    .founder-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem;
+      margin-top: .8rem;
+    }
+    .ftag {
+      font-size: .65rem;
+      padding: .2rem .65rem;
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 50px;
+      color: rgba(255,255,255,.7);
+    }
+
+    /* Bottom branding */
+    .card-brand {
+      font-size: .68rem;
+      color: rgba(255,255,255,.4);
+      letter-spacing: .08em;
+    }
+
+    /* Big number */
+    .big-num {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 5rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.12);
+      position: absolute;
+      bottom: 2.5rem;
+      right: 2rem;
+      line-height: 1;
+      z-index: 0;
+    }
+
+    /* Checklist grid */
+    .check-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .4rem;
+    }
+    .check-item {
+      display: flex;
+      gap: .4rem;
+      align-items: flex-start;
+      font-size: .72rem;
+      color: rgba(255,255,255,.8);
+      line-height: 1.5;
+    }
+    .check-item .ck { color: #D4CA6A; flex-shrink: 0; font-weight: 700; }
+
+    /* Decorative circle blob */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,.07);
+      z-index: 0;
+    }
+
+    /* Print hint */
+    .print-hint {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: .82rem;
+      color: rgba(255,255,255,.35);
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .card-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .page-header, .print-hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>ARI 아리 카드뉴스</h1>
+  <p>자기돌봄 움직임 전문가 과정 · 총 11장</p>
+</div>
+
+<div class="card-grid">
+
+  <!-- ══ CARD 01 · 커버 ══ -->
+  <div class="card">
+    <div class="card-inner-line-top"></div>
+    <div class="card-inner-line-bottom"></div>
+    <span class="card-num">01 / 11</span>
+    <div class="blob" style="width:220px;height:220px;top:-60px;right:-60px;"></div>
+
+    <div class="card-top">
+      <div class="card-logo">
+        <img src="ari-logo.png" alt="ARI" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span class="card-logo-fallback" style="display:none;">ARI</span>
+        <div>
+          <div style="font-family:'Noto Serif KR',serif;font-size:1.1rem;font-weight:700;color:#fff;letter-spacing:.04em;">ARI 아리</div>
+          <div class="card-logo-sub">자기돌봄 움직임 전문가 과정</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-mid" style="gap:0;">
+      <div style="font-size:.78rem;color:rgba(255,255,255,.6);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;">2026 모집 안내</div>
+      <div class="card-headline large" style="margin-bottom:1rem;">움직임으로<br>나를 돌보는 삶</div>
+      <div class="card-divider"></div>
+      <p class="card-sub">감각·감정·생각·움직임을<br>알아차리고 조절하는<br>자기돌봄 움직임 학습과정</p>
+    </div>
+
+    <div class="card-bottom" style="display:flex;justify-content:space-between;align-items:flex-end;">
+      <div>
+        <div style="font-size:.72rem;color:rgba(255,255,255,.5);letter-spacing:.06em;margin-bottom:.25rem;">2026. 09 개강</div>
+        <div style="font-size:.78rem;font-weight:700;color:rgba(255,255,255,.8);">펠든크라이스 무브 · 서울 압구정동</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:.68rem;color:rgba(255,255,255,.4);">Module 1</div>
+        <div style="font-size:.78rem;font-weight:700;color:rgba(255,255,255,.7);">총 90시간</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CARD 02 · A·R·I ══ -->
+  <div class="card">
+    <div class="card-inner-line-top"></div>
+    <div class="card-inner-line-bottom"></div>
+    <span class="card-num">02 / 11</span>
+
+    <div class="card-top">
+      <span class="card-tag">What is ARI</span>
+      <div class="card-headline" style="margin-bottom:.3rem;">ARI란?</div>
+      <p class="card-sub" style="font-size:.8rem;">세 가지 핵심 원리로 이루어진 이름</p>
+    </div>
+
+    <div class="card-mid" style="padding:1rem 0;">
+      <div class="ari-row">
+        <div class="ari-item">
+          <div class="ari-letter">A</div>
+          <div class="ari-text">
+            <div class="ari-en">Awareness</div>
+            <div class="ari-kr">감각 인지 · 알아차림<br>몸의 신호를 섬세하게 인식</div>
+          </div>
+        </div>
+        <div class="ari-item">
+          <div class="ari-letter">R</div>
+          <div class="ari-text">
+            <div class="ari-en">Reorganization</div>
+            <div class="ari-kr">신경계 재조직 · 패턴 전환<br>습관적 긴장을 내려놓고 재조직</div>
+          </div>
+        </div>
+        <div class="ari-item">
+          <div class="ari-letter">I</div>
+          <div class="ari-text">
+            <div class="ari-en">Integration</div>
+            <div class="ari-kr">통합 · 자율성 회복<br>감각·감정·생각의 유기적 통합</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-bottom">
+      <div style="font-size:.76rem;color:rgba(255,255,255,.5);line-height:1.7;">아리는 우리말 어근에서 온 이름입니다.<br>몸을 통해 나를 알고 흐르는 삶을 가꾸는 여정.</div>
+    </div>
+  </div>
+
+  <!-- ══ CARD 03 · Approach ══ -->
+  <div class="card">
+    <div class="card-inner-line-top"></div>
+    <div class="card-inner-line-bottom"></div>
+    <span class="card-num">03 / 11</span>
+
+    <div class="card-top">
+      <span class="card-tag">Approach</span>
+      <div class="card-headline">움직임이<br>학습이 되는 과정</div>
+    </div>
+
+    <div class="card-mid" style="gap:.8rem;">
+      <div class="quote-block">
+        <p class="quote-text">"Movement is the basis of awareness."</p>
+        <p class="quote-author">— Moshe Feldenkrais</p>
+      </div>
+      <p style="font-size:.78rem;color:rgba(255,255,255,.72);line-height:1.85;word-break:keep-all;">
+        펠든크라이스는 움직임을 단순한 신체 활동이 아니라, 자신을 인식하고 변화시키는 가장 근본적인 방식으로 보았습니다.
+      </p>
+      <p style="font-size:.78rem;color:rgba(255,255,255,.72);line-height:1.85;word-break:keep-all;">
+        ARI는 감각·인지·움직임을 하나의 흐름으로 연결하고, 신경가소성을 기반으로 움직임 자체가 곧 학습이 되는 과정을 구현합니다.
+      </p>
+    </div>
+
+    <div class="card-bottom">
+      <div style="background:rgba(255,255,255,.12);border-radius:10px;padding:.75rem 1rem;">
+        <p style="font-size:.8rem;font-weight:700;color:#fff;">👉 움직임은 삶의 기반이 되고, 학습이 되며, 표현이 됩니다</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CARD 04 · Program Overview ══ -->
+  <div class="card">
+    <div class="card-inner-line-top"></div>
+    <div class="card-inner-line-bottom"></div>
+    <span class="card-num">04 / 11</span>
+
+    <div class="card-top">
+      <span class="card-tag">Program</span>
+      <div class="card-headline small">전문가 과정 소개</div>
+      <div class="card-divider"></div>
+    </div>
+
+    <div class="card-mid" style="gap:.7rem;">
+      <p style="font-size:.78rem;color:rgba(255,255,255,.8);line-height:1.85;word-break:keep-all;">
+        펠든크라이스 메소드와 Jeremy Krauss Approach를 기반으로, 예술적 경험과 움직임 교육을 바탕으로 설계된 감각인지 기반 움직임 교육입니다.
+      </p>
+      <p style="font-size:.78rem;color:rgba(255,255,255,.8);line-height:1.85;word-break:keep-all;">
+        감각·인지·움직임을 분리하지 않고 하나의 학습 구조로 통합하며 신경가소성을 바탕으로 움직임 자체가 곧 학습이 되는 과정을 만듭니다.
+      </p>
+      <div class="card-divider" style="margin:.3rem 0;"></div>
+      <p style="font-size:.76rem;color:rgba(255,255,255,.65);line-height:1.8;word-break:keep-all;">
+        주의 · 리스닝 · 관찰 · 비판단 · 억제 · 분화 · 방향성 등 소매틱스의 핵심 원리는 경험 속에서 자연스럽게 체화됩니다.
+      </p>
+    </div>
+
+    <div class="card-bottom">
+      <div style="font-size:.76rem;color:rgba(255,255,255,.5);">모든 과정은 개념이 아닌 움직임으로 구현됩니다<br>ARI Practice &amp; ARI Flow 구조로 구체화</div>
+    </div>
+  </div>
+
+  <!-- ══ CARD 05 · ARI Practice ══ -->
+  <div class="card">
+    <div class="card-inner-line-top"></div>
+    <div class="card-inner-line-bottom"></div>
+    <span class="card-num">05 / 11</span>
+
+    <div class="card-top">
+      <span class="card-tag">Program</span>
+      <div class="card-headline">ARI Practice</div>
+      <p class="card-sub" style="font-size:.78rem;margin-top:.3rem;">교사의 안내에 따라 감각과 주의를 조절하며<br>자기 사용 방식을 탐구하는 과정</p>
+      <div class="card-divider"></div>
+    </div>
+
+    <div class="card-mid">
+      <ul class="card-list">
+        <li><span class="dot">✓</span>다양한 자기-사용 방식 탐구</li>
+        <li><span class="dot">✓</span>주의 조절 및 전환 능력 확장</li>
+        <li><span class="dot">✓</span>차이를 인지하는 감각의 섬세함</li>
+        <li><span class="dot">✓</span>구조와 기능의 연결 이해</li>
+        <li><span class="dot">✓</span>민감성 및 신체 인식 향상</li>
+        <li><span class="dot">✓</span>가동성 · 안정성 · 균형 · 제어 능력 향상</li>
+        <li><span class="dot">✓</span>의도와 행동의 조화</li>
+      </ul>
+    </div>
+
+    <div class="card-bottom">
+      <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+        <span style="font-size:.75rem;color:rgba(255,255,255,.6);">· 주제별 12개 ARI Practice</span>
+        <span style="font-size:.75rem;color:rgba(255,255,255,.6);">· 모듈 1 총 36개 스크립트 제공</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CARD 06 · ARI Flow ══ -->
+  <div class="card">
+    <div class="card-inner-line-top"></div>
+    <div class="card-inner-line-bottom"></div>
+    <span class="card-num">06 / 11</span>
+
+    <div class="card-top">
+      <span class="card-tag">Program</span>
+      <div class="card-headline">ARI Flow</div>
+      <p class="card-sub" style="font-size:.78rem;margin-top:.3rem;">언제 어디서나 몸과 마음을 회복하고<br>조율할 수 있는 자기 수련 움직임 시퀀스</p>
+      <div class="card-divider"></div>
+    </div>
+
+    <div class="card-mid">
+      <p style="font-size:.77rem;color:rgba(255,255,255,.7);line-height:1.75;margin-bottom:.8rem;">3개의 MOVE가 연결되어 하나의 유기적인 흐름, ARI Flow를 만듭니다.</p>
+      <ul class="card-list">
+        <li><span class="dot">✓</span>움직임의 유동적 흐름</li>
+        <li><span class="dot">✓</span>자세 전환 및 협응 능력 향상</li>
+        <li><span class="dot">✓</span>감각 기반의 정교한 조절 능력</li>
+        <li><span class="dot">✓</span>효율적인 신체 사용과 통합</li>
+        <li><span class="dot">✓</span>고유한 자기표현의 확장</li>
+        <li><span class="dot">✓</span>자연스러움과 자발성의 회복</li>
+      </ul>
+    </div>
+
+    <div class="card-bottom">
+      <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+        <span style="font-size:.75rem;color:rgba(255,255,255,.6);">· 주제별 3개 ARI Flow</span>
+        <span style="font-size:.75rem;color:rgba(255,255,255,.6);">· 모듈 1 총 12개 영상 제공</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CARD 07 · 핵심 구성 ══ -->
+  <div class="card">
+    <div class="card-inner-line-top"></div>
+    <div class="card-inner-line-bottom"></div>
+    <span class="card-num">07 / 11</span>
+
+    <div class="card-top">
+      <span class="card-tag">Program</span>
+      <div class="card-headline small">움직임 학습의 핵심 구성</div>
+      <div class="card-divider"></div>
+    </div>
+
+    <div class="card-mid">
+      <div class="check-grid">
+        <div class="check-item"><span class="ck">✔</span>호흡 · 척추 · 골반 · 어깨 기능적 움직임</div>
+        <div class="check-item"><span class="ck">✔</span>감각 · 주의 · 조절 기반 신경계 재조직</div>
+        <div class="check-item"><span class="ck">✔</span>소매틱 원리와 기능 해부학 통합</div>
+        <div class="check-item"><span class="ck">✔</span>신경과학적 관점의 자기 인식 확장</div>
+        <div class="check-item"><span class="ck">✔</span>호흡과 움직임의 자연스러운 연결</div>
+        <div class="check-item"><span class="ck">✔</span>척추 · 골반 · 어깨 협응과 통합</div>
+        <div class="check-item"><span class="ck">✔</span>감각 기반 움직임 인식과 조절</div>
+        <div class="check-item"><span class="ck">✔</span>주의 전환을 통한 신경계 조율</div>
+        <div class="check-item"><span class="ck">✔</span>긴장과 이완의 균형 회복</div>
+        <div class="check-item"><span class="ck">✔</span>중력과의 관계 속 효율적 움직임</div>
+        <div class="check-item"><span class="ck">✔</span>움직임 선택지 확장과 자기 인식</div>
+      </div>
+    </div>
+
+    <div class="card-bottom">
+      <div class="card-brand">ARI 아리 · 자기돌봄 움직임 전문가 과정</div>
+    </div>
+  </div>
+
+  <!-- ══ CARD 08 · 세그먼트 일정 ══ -->
+  <div class="card">
+    <div class="card-inner-line-top"></div>
+    <div class="card-inner-line-bottom"></div>
+    <span class="card-num">08 / 11</span>
+
+    <div class="card-top">
+      <span class="card-tag">Curriculum · Module 1</span>
+      <div class="card-headline small">세그먼트 일정</div>
+      <p class="card-sub" style="font-size:.75rem;margin-top:.2rem;margin-bottom:.6rem;">
+        대면 토·일 오후 2–7시 (5시간) &nbsp;|&nbsp; 온라인 토 오후 2시 (2시간 30분)
+      </p>
+      <div class="card-divider"></div>
+    </div>
+
+    <div class="card-mid" style="gap:.5rem;">
+      <div style="font-size:.72rem;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.1em;margin-bottom:.3rem;">세그먼트 1</div>
+      <div class="sched-block">
+        <div class="sched-title">호흡편</div>
+        <div class="sched-dates">대면 · 9/5–6, 9/19–20 &nbsp;|&nbsp; 온라인 · 10/10</div>
+      </div>
+      <div class="sched-block">
+        <div class="sched-title">척추편</div>
+        <div class="sched-dates">대면 · 10/24–25, 11/7–8 &nbsp;|&nbsp; 온라인 · 11/21</div>
+      </div>
+      <div style="font-size:.72rem;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.1em;margin:.3rem 0;">세그먼트 2</div>
+      <div class="sched-block">
+        <div class="sched-title">골반편</div>
+        <div class="sched-dates">대면 · 1/9–10, 1/23–24 &nbsp;|&nbsp; 온라인 · 1/30</div>
+      </div>
+      <div class="sched-block">
+        <div class="sched-title">어깨편</div>
+        <div class="sched-dates">대면 · 2/27–28, 3/13–14 &nbsp;|&nbsp; 온라인 · 3/27</div>
+      </div>
+    </div>
+
+    <div class="card-bottom">
+      <div style="font-size:.73rem;color:rgba(255,255,255,.5);">Module 1 기본과정 · 총 90시간</div>
+    </div>
+  </div>
+
+  <!-- ══ CARD 09 · 등록 및 접수 ══ -->
+  <div class="card">
+    <div class="card-inner-line-top"></div>
+    <div class="card-inner-line-bottom"></div>
+    <span class="card-num">09 / 11</span>
+
+    <div class="card-top">
+      <span class="card-tag">등록 및 접수</span>
+      <div class="card-headline">수강료 안내</div>
+      <p class="card-sub" style="font-size:.78rem;margin-top:.25rem;">정원 16명</p>
+      <div class="card-divider"></div>
+    </div>
+
+    <div class="card-mid">
+      <div>
+        <div class="price-row">
+          <div class="price-label">접수비</div>
+          <div style="text-align:right;">
+            <div class="price-val">100,000원</div>
+            <div class="price-note">환불 불가</div>
+          </div>
+        </div>
+        <div class="price-row">
+          <div class="price-label">등록금</div>
+          <div style="text-align:right;">
+            <div class="price-val">3,300,000원</div>
+            <div class="price-note">부가세 포함</div>
+          </div>
+        </div>
+        <div class="price-row">
+          <div class="price-label">조기 등록</div>
+          <div style="text-align:right;">
+            <div class="price-val price-highlight">3,000,000원</div>
+            <div class="price-note" style="color:#D4CA6A;">10% 할인 · 부가세 포함</div>
+          </div>
+        </div>
+        <div class="price-row">
+          <div class="price-label">세그별 등록</div>
+          <div style="text-align:right;">
+            <div class="price-val">1,980,000원</div>
+            <div class="price-note">부가세 포함</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-bottom">
+      <div style="background:rgba(255,255,255,.12);border-radius:10px;padding:.7rem 1rem;text-align:center;">
+        <p style="font-size:.78rem;font-weight:700;color:#fff;">수강 신청은 사전 상담을 통해 진행됩니다</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CARD 10 · 아리를 추천합니다 ══ -->
+  <div class="card">
+    <div class="card-inner-line-top"></div>
+    <div class="card-inner-line-bottom"></div>
+    <span class="card-num">10 / 11</span>
+
+    <div class="card-top">
+      <span class="card-tag">For You</span>
+      <div class="card-headline small">아리를 추천합니다</div>
+      <div class="card-divider"></div>
+    </div>
+
+    <div class="card-mid">
+      <div>
+        <div class="rec-item">
+          <span class="rec-check">✔</span>
+          <span class="rec-text">몸의 소리에 귀 기울이며 나를 더 이해하고 싶은 분</span>
+        </div>
+        <div class="rec-item">
+          <span class="rec-check">✔</span>
+          <span class="rec-text">움직임을 통해 자기돌봄, 서로돌봄을 실천하고 싶은 분</span>
+        </div>
+        <div class="rec-item">
+          <span class="rec-check">✔</span>
+          <span class="rec-text">감각, 감정, 생각의 변화를 알아차리고 싶은 분</span>
+        </div>
+        <div class="rec-item">
+          <span class="rec-check">✔</span>
+          <span class="rec-text">스스로 긴장을 조절하고 회복의 방법을 배우고 싶은 분</span>
+        </div>
+        <div class="rec-item">
+          <span class="rec-check">✔</span>
+          <span class="rec-text">나답게 움직이는 법을 찾고 싶은 분</span>
+        </div>
+        <div class="rec-item">
+          <span class="rec-check">✔</span>
+          <span class="rec-text">필라테스, 요가, 무용 강사, 움직임 교육 전문가로서 소매틱스 원리와 방법론을 확장하고 싶은 분</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-bottom">
+      <div class="card-brand">ARI 아리 · 자기돌봄 움직임 전문가 과정</div>
+    </div>
+  </div>
+
+  <!-- ══ CARD 11 · 김윤진 ══ -->
+  <div class="card">
+    <div class="card-inner-line-top"></div>
+    <div class="card-inner-line-bottom"></div>
+    <span class="card-num">11 / 11</span>
+
+    <div class="card-top">
+      <span class="card-tag">ARI를 만든 사람</span>
+      <div class="founder-name-big">김윤진</div>
+      <div class="founder-role-tag">공동창립자 · 국제 공인 펠든크라이스 전문가 · JKA 전문가</div>
+      <div class="card-divider"></div>
+    </div>
+
+    <div class="card-mid">
+      <p class="founder-story">
+        한국춤을 수련하였고 안무와 창작 예술교육 분야에서 30년 넘게 활동하였습니다. 부상과 만성통증, 번아웃으로 힘들던 중년기에 운명처럼 펠든크라이스 메소드를 만났습니다.<br><br>
+        이제껏 경험하지 못한 부드러움으로 몸이 리셋되는 기적 같은 체험을 하고, 국제 공인 펠든크라이스 전문가, JKA 전문가가 되었습니다. 현재 펠든크라이스 무브 대표이자 한국 JKA 운동발달 전문가 협회 회장으로 활동합니다.
+      </p>
+      <div class="founder-tags">
+        <span class="ftag">한국춤 수련</span>
+        <span class="ftag">펠든크라이스 전문가</span>
+        <span class="ftag">JKA 전문가</span>
+        <span class="ftag">30년+ 예술교육</span>
+        <span class="ftag">번역가</span>
+      </div>
+    </div>
+
+    <div class="card-bottom">
+      <div class="card-brand">ARI 아리 · 펠든크라이스 무브 대표</div>
+    </div>
+  </div>
+
+  <!-- ══ CARD 12 · 임소연 ══ (bonus card) -->
+  <div class="card">
+    <div class="card-inner-line-top"></div>
+    <div class="card-inner-line-bottom"></div>
+    <span class="card-num">+ / 11</span>
+
+    <div class="card-top">
+      <span class="card-tag">ARI를 만든 사람</span>
+      <div class="founder-name-big">임소연</div>
+      <div class="founder-role-tag">공동창립자 · 국제 공인 펠든크라이스 전문가 · JKA 교사</div>
+      <div class="card-divider"></div>
+    </div>
+
+    <div class="card-mid">
+      <p class="founder-story">
+        평생 춤을 추며 살아갈 것이라 믿었습니다. 하지만 류마티스 관절염으로 더 이상 춤을 이어갈 수 없게 되었을 때 펠든크라이스를 만나게 되었습니다.<br><br>
+        그 배움은 나이가 들어서도 더 자유롭게 움직일 수 있다는 희망과 가능성을 다시 품게 해주었습니다. 이후 유방암 진단을 받고도 펠든크라이스와 함께 견뎌냈습니다.<br><br>
+        어떤 순간에도 움직일 수 있다면 스스로 돌보는 삶을 살 수 있다고 믿습니다.
+      </p>
+      <div class="founder-tags">
+        <span class="ftag">펠든크라이스 전문가</span>
+        <span class="ftag">JKA 교사</span>
+        <span class="ftag">무용가</span>
+        <span class="ftag">소매틱 움직임</span>
+      </div>
+    </div>
+
+    <div class="card-bottom">
+      <div class="card-brand">ARI 아리 · 자기돌봄 움직임 전문가 과정</div>
+    </div>
+  </div>
+
+</div>
+
+<p class="print-hint">※ 각 카드는 4:5 비율 (Instagram 포맷)으로 설계되었습니다. 브라우저에서 Ctrl+P → 개별 캡처 또는 화면 캡처 도구로 저장하세요.</p>
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ARI 컬러 옵션</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans KR', sans-serif; background: #F0EDEA; padding: 48px 32px; }
+  h1 { font-family: 'Noto Serif KR', serif; font-size: 1.6rem; color: #333; margin-bottom: 8px; text-align: center; }
+  .subtitle { text-align: center; color: #888; font-size: .9rem; margin-bottom: 48px; }
+
+  .palette-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; max-width: 900px; margin: 0 auto; }
+
+  .palette {
+    background: #fff; border-radius: 20px; overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,.08);
+  }
+  .palette-preview {
+    height: 140px; display: flex; position: relative;
+  }
+  .swatch { flex: 1; }
+  .palette-body { padding: 24px; }
+  .palette-num { font-size: .72rem; font-weight: 700; letter-spacing: .12em; color: #bbb; margin-bottom: 6px; }
+  .palette-name { font-family: 'Noto Serif KR', serif; font-size: 1.2rem; font-weight: 600; color: #333; margin-bottom: 4px; }
+  .palette-desc { font-size: .82rem; color: #888; margin-bottom: 20px; line-height: 1.6; }
+  .color-list { display: flex; flex-direction: column; gap: 8px; }
+  .color-row { display: flex; align-items: center; gap: 12px; }
+  .color-dot { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; border: 1px solid rgba(0,0,0,.06); }
+  .color-info { display: flex; flex-direction: column; }
+  .color-role { font-size: .75rem; color: #aaa; font-weight: 500; }
+  .color-hex { font-size: .88rem; font-weight: 700; color: #444; letter-spacing: .04em; }
+
+  /* 기존 컬러 - 비교용 */
+  .current-badge {
+    display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .08em;
+    background: #eee; color: #888; padding: 2px 8px; border-radius: 20px; margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  @media (max-width: 640px) { .palette-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<h1>ARI 컬러 팔레트 옵션</h1>
+<p class="subtitle">마음에 드는 번호를 골라줘!</p>
+
+<div class="palette-grid">
+
+  <!-- 0. 현재 -->
+  <div class="palette">
+    <div class="palette-preview">
+      <div class="swatch" style="background:#7A9E88;"></div>
+      <div class="swatch" style="background:#B8766A;"></div>
+      <div class="swatch" style="background:#FBF5F2;"></div>
+      <div class="swatch" style="background:#6B5550;"></div>
+    </div>
+    <div class="palette-body">
+      <div class="palette-num">CURRENT <span class="current-badge">현재</span></div>
+      <div class="palette-name">Dusty Rose & Sage</div>
+      <div class="palette-desc">세이지 그린 + 더스티 로즈. 따뜻하지만 살짝 올드한 느낌.</div>
+      <div class="color-list">
+        <div class="color-row"><div class="color-dot" style="background:#7A9E88;"></div><div class="color-info"><span class="color-role">Primary</span><span class="color-hex">#7A9E88</span></div></div>
+        <div class="color-row"><div class="color-dot" style="background:#B8766A;"></div><div class="color-info"><span class="color-role">Accent</span><span class="color-hex">#B8766A</span></div></div>
+        <div class="color-row"><div class="color-dot" style="background:#FBF5F2;"></div><div class="color-info"><span class="color-role">Background</span><span class="color-hex">#FBF5F2</span></div></div>
+        <div class="color-row"><div class="color-dot" style="background:#6B5550;"></div><div class="color-info"><span class="color-role">Text Dark</span><span class="color-hex">#6B5550</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 모던 뉴트럴 -->
+  <div class="palette">
+    <div class="palette-preview">
+      <div class="swatch" style="background:#C17F6A;"></div>
+      <div class="swatch" style="background:#E8C4A0;"></div>
+      <div class="swatch" style="background:#FAF7F4;"></div>
+      <div class="swatch" style="background:#2C2420;"></div>
+    </div>
+    <div class="palette-body">
+      <div class="palette-num">OPTION 01</div>
+      <div class="palette-name">모던 뉴트럴</div>
+      <div class="palette-desc">테라코타 + 웜 아이보리 + 딥 차콜. 세련되고 현대적인 느낌.</div>
+      <div class="color-list">
+        <div class="color-row"><div class="color-dot" style="background:#C17F6A;"></div><div class="color-info"><span class="color-role">Primary — 테라코타</span><span class="color-hex">#C17F6A</span></div></div>
+        <div class="color-row"><div class="color-dot" style="background:#E8C4A0;"></div><div class="color-info"><span class="color-role">Accent — 웜 샌드</span><span class="color-hex">#E8C4A0</span></div></div>
+        <div class="color-row"><div class="color-dot" style="background:#FAF7F4;"></div><div class="color-info"><span class="color-role">Background — 아이보리</span><span class="color-hex">#FAF7F4</span></div></div>
+        <div class="color-row"><div class="color-dot" style="background:#2C2420;"></div><div class="color-info"><span class="color-role">Text — 딥 차콜</span><span class="color-hex">#2C2420</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 딥 포레스트 -->
+  <div class="palette">
+    <div class="palette-preview">
+      <div class="swatch" style="background:#2D5016;"></div>
+      <div class="swatch" style="background:#6B8F5E;"></div>
+      <div class="swatch" style="background:#F5F0E8;"></div>
+      <div class="swatch" style="background:#C9A84C;"></div>
+    </div>
+    <div class="palette-body">
+      <div class="palette-num">OPTION 02</div>
+      <div class="palette-name">딥 포레스트</div>
+      <div class="palette-desc">짙은 포레스트 그린 + 크림 + 골드 포인트. 고급스럽고 자연적인 느낌.</div>
+      <div class="color-list">
+        <div class="color-row"><div class="color-dot" style="background:#2D5016;"></div><div class="color-info"><span class="color-role">Primary — 딥 포레스트</span><span class="color-hex">#2D5016</span></div></div>
+        <div class="color-row"><div class="color-dot" style="background:#6B8F5E;"></div><div class="color-info"><span class="color-role">Secondary — 미드 그린</span><span class="color-hex">#6B8F5E</span></div></div>
+        <div class="color-row"><div class="color-dot" style="background:#F5F0E8;"></div><div class="color-info"><span class="color-role">Background — 크림</span><span class="color-hex">#F5F0E8</span></div></div>
+        <div class="color-row"><div class="color-dot" style="background:#C9A84C;"></div><div class="color-info"><span class="color-role">Accent — 골드</span><span class="color-hex">#C9A84C</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 클린 미니멀 -->
+  <div class="palette">
+    <div class="palette-preview">
+      <div class="swatch" style="background:#1A1A1A;"></div>
+      <div class="swatch" style="background:#8BAF9A;"></div>
+      <div class="swatch" style="background:#FFFFFF;"></div>
+      <div class="swatch" style="background:#F2F2F0;"></div>
+    </div>
+    <div class="palette-body">
+      <div class="palette-num">OPTION 03</div>
+      <div class="palette-name">클린 미니멀</div>
+      <div class="palette-desc">거의 흰색 베이스 + 연한 세이지 + 블랙 타이포. 깔끔하고 트렌디한 느낌.</div>
+      <div class="color-list">
+        <div class="color-row"><div class="color-dot" style="background:#1A1A1A;"></div><div class="color-info"><span class="color-role">Primary — 니어 블랙</span><span class="color-hex">#1A1A1A</span></div></div>
+        <div class="color-row"><div class="color-dot" style="background:#8BAF9A;"></div><div class="color-info"><span class="color-role">Accent — 소프트 세이지</span><span class="color-hex">#8BAF9A</span></div></div>
+        <div class="color-row"><div class="color-dot" style="background:#FFFFFF;"></div><div class="color-info"><span class="color-role">Background — 화이트</span><span class="color-hex">#FFFFFF</span></div></div>
+        <div class="color-row"><div class="color-dot" style="background:#F2F2F0;"></div><div class="color-info"><span class="color-role">Surface — 라이트 그레이</span><span class="color-hex">#F2F2F0</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 웜 모카 -->
+  <div class="palette">
+    <div class="palette-preview">
+      <div class="swatch" style="background:#6B4C3B;"></div>
+      <div class="swatch" style="background:#C4956A;"></div>
+      <div class="swatch" style="background:#FBF6F0;"></div>
+      <div class="swatch" style="background:#D4A5A5;"></div>
+    </div>
+    <div class="palette-body">
+      <div class="palette-num">OPTION 04</div>
+      <div class="palette-name">웜 모카</div>
+      <div class="palette-desc">코코아 브라운 + 카멜 + 로즈베이지. 따뜻하고 감성적인 느낌.</div>
+      <div class="color-list">
+        <div class="color-row"><div class="color-dot" style="background:#6B4C3B;"></div><div class="color-info"><span class="color-role">Primary — 딥 모카</span><span class="color-hex">#6B4C3B</span></div></div>
+        <div class="color-row"><div class="color-dot" style="background:#C4956A;"></div><div class="color-info"><span class="color-role">Secondary — 카멜</span><span class="color-hex">#C4956A</span></div></div>
+        <div class="color-row"><div class="color-dot" style="background:#FBF6F0;"></div><div class="color-info"><span class="color-role">Background — 웜 화이트</span><span class="color-hex">#FBF6F0</span></div></div>
+        <div class="color-row"><div class="color-dot" style="background:#D4A5A5;"></div><div class="color-info"><span class="color-role">Accent — 로즈베이지</span><span class="color-hex">#D4A5A5</span></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

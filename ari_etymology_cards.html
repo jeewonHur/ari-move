@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ARI · Etymology Cards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #252a42;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #e8e6df;
+      min-height: 100vh;
+      padding: 60px 40px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: #8a8fa8;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #a8b0a0;
+      letter-spacing: 0.15em;
+      margin-bottom: 40px;
+    }
+
+    /* ── CARD GRID ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto 60px;
+    }
+
+    .card {
+      background: #2e3450;
+      border-radius: 16px;
+      padding: 40px 32px 36px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* large faded letter */
+    .card-letter {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 96px;
+      font-weight: 700;
+      color: #6b7a5e;
+      opacity: 0.35;
+      line-height: 1;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+    .card-letter.latin {
+      font-family: 'Playfair Display', serif;
+      font-size: 96px;
+      color: #7a8f6e;
+      opacity: 0.4;
+    }
+
+    .card-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #f0ede6;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    .card-title .separator {
+      color: #8a9a7a;
+      margin: 0 6px;
+      font-weight: 300;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      line-height: 1.85;
+      color: #b0afc8;
+      font-weight: 300;
+    }
+
+    /* etymology detail rows */
+    .etym-block {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .etym-row {
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+      margin-bottom: 7px;
+    }
+
+    .etym-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: #7a8f6e;
+      text-transform: uppercase;
+      min-width: 58px;
+      flex-shrink: 0;
+      font-weight: 500;
+    }
+
+    .etym-val {
+      font-size: 12.5px;
+      color: #c8c6d8;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .etym-val strong {
+      color: #e8e6df;
+      font-weight: 500;
+    }
+
+    /* related words tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      background: rgba(122, 143, 110, 0.15);
+      border: 1px solid rgba(122, 143, 110, 0.3);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 11px;
+      color: #9aad8a;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── BOTTOM STRIP ── */
+    .bottom-strip {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .strip-item {
+      padding: 8px 0;
+    }
+
+    .strip-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #f0ede6;
+      margin-bottom: 5px;
+    }
+
+    .strip-sub {
+      font-size: 12px;
+      color: #8a8fa8;
+      letter-spacing: 0.02em;
+    }
+
+    /* divider */
+    .divider {
+      max-width: 1100px;
+      margin: 0 auto 40px;
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+  </style>
+</head>
+<body>
+
+  <p class="section-label">ARI · 어원 카드</p>
+  <p class="section-title">알다 · 흐르다 · 씨앗 — 세 단어의 뿌리</p>
+
+  <!-- Row 1: Korean words -->
+  <div class="card-grid">
+
+    <!-- 알다 -->
+    <div class="card">
+      <div class="card-letter">ㅇ</div>
+      <div class="card-title">알다<span class="separator">·</span>인지하다</div>
+      <div class="card-desc">내 몸의 감각과 신호를 알아채고 인식하는 것. 모든 자기돌봄의 시작.</div>
+      <div class="etym-block">
+        <div class="etym-row">
+          <span class="etym-label">어근</span>
+          <span class="etym-val"><strong>알–</strong> · 핵심·알맹이를 뜻하는 원형</span>
+        </div>
+        <div class="etym-row">
+          <span class="etym-label">본뜻</span>
+          <span class="etym-val">알(卵/粒) — 씨앗·알·핵(核). 사물의 <strong>본질을 꿰뚫다</strong></span>
+        </div>
+        <div class="etym-row">
+          <span class="etym-label">중세어</span>
+          <span class="etym-val">《훈민정음》 시대부터 <strong>알다</strong> 그대로 쓰임</span>
+        </div>
+        <div class="etym-row">
+          <span class="etym-label">연결</span>
+          <span class="etym-val">알아차리다 · 알아보다 · 알아듣다</span>
+        </div>
+        <div class="tags">
+          <span class="tag">Awareness</span>
+          <span class="tag">감각 인지</span>
+          <span class="tag">알아차림</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 흐르다 -->
+    <div class="card">
+      <div class="card-letter">ㄹ</div>
+      <div class="card-title">흐르다<span class="separator">·</span>연결되다</div>
+      <div class="card-desc">막힘 없이 흐르는 움직임처럼, 몸·감정·생각이 자연스럽게 이어지는 상태.</div>
+      <div class="etym-block">
+        <div class="etym-row">
+          <span class="etym-label">어근</span>
+          <span class="etym-val"><strong>흘–</strong> (ㄹ 불규칙) · 액체의 유동</span>
+        </div>
+        <div class="etym-row">
+          <span class="etym-label">본뜻</span>
+          <span class="etym-val">물이 <strong>막힘 없이 이어지다</strong> · 끊기지 않고 통하다</span>
+        </div>
+        <div class="etym-row">
+          <span class="etym-label">중세어</span>
+          <span class="etym-val"><strong>흐르다</strong> — 15세기 문헌에서 확인</span>
+        </div>
+        <div class="etym-row">
+          <span class="etym-label">연결</span>
+          <span class="etym-val">흘리다 · 흘러가다 · 흘러넘치다</span>
+        </div>
+        <div class="tags">
+          <span class="tag">Reorganization</span>
+          <span class="tag">패턴 전환</span>
+          <span class="tag">신경계 흐름</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 씨앗 -->
+    <div class="card">
+      <div class="card-letter">알</div>
+      <div class="card-title">씨앗<span class="separator">·</span>가능성</div>
+      <div class="card-desc">내 안에 이미 존재하는 치유와 배움의 씨앗. 움직임으로 그것을 깨워냅니다.</div>
+      <div class="etym-block">
+        <div class="etym-row">
+          <span class="etym-label">구성</span>
+          <span class="etym-val"><strong>씨</strong>(種) + <strong>앗</strong>(강조 접미) → 씨앗</span>
+        </div>
+        <div class="etym-row">
+          <span class="etym-label">본뜻</span>
+          <span class="etym-val">씨 = <strong>생명의 근원</strong> · 아직 펼쳐지지 않은 잠재</span>
+        </div>
+        <div class="etym-row">
+          <span class="etym-label">알+씨앗</span>
+          <span class="etym-val"><strong>알</strong>(핵심)과 <strong>씨앗</strong>(가능성) — 이중 강조</span>
+        </div>
+        <div class="etym-row">
+          <span class="etym-label">연결</span>
+          <span class="etym-val">씨앗을 뿌리다 · 씨앗을 품다 · 싹트다</span>
+        </div>
+        <div class="tags">
+          <span class="tag">Integration</span>
+          <span class="tag">자율성 회복</span>
+          <span class="tag">내재된 치유</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Row 2: A · R · I -->
+  <div class="card-grid">
+
+    <div class="card">
+      <div class="card-letter latin">A</div>
+      <div class="card-title">Awareness</div>
+      <div class="card-desc">감각 인지 · 알아차림<br>몸의 신호를 섬세하게 인식</div>
+      <div class="etym-block">
+        <div class="etym-row">
+          <span class="etym-label">어원</span>
+          <span class="etym-val">고영어 <strong>gewær</strong> — '주의 깊은, 경계하는'</span>
+        </div>
+        <div class="etym-row">
+          <span class="etym-label">라틴</span>
+          <span class="etym-val"><strong>cavēre</strong> — 조심하다, 지켜보다</span>
+        </div>
+        <div class="etym-row">
+          <span class="etym-label">한국어</span>
+          <span class="etym-val"><strong>알다</strong> — 본질을 꿰뚫어 앎</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-letter latin">R</div>
+      <div class="card-title">Reorganization</div>
+      <div class="card-desc">신경계 재조직 · 패턴 전환<br>습관적 긴장을 내려놓고 재조직</div>
+      <div class="etym-block">
+        <div class="etym-row">
+          <span class="etym-label">어원</span>
+          <span class="etym-val">그리스어 <strong>organon</strong> — 도구, 악기, 기관</span>
+        </div>
+        <div class="etym-row">
+          <span class="etym-label">접두어</span>
+          <span class="etym-val"><strong>re–</strong> — 다시, 새롭게</span>
+        </div>
+        <div class="etym-row">
+          <span class="etym-label">한국어</span>
+          <span class="etym-val"><strong>흐르다</strong> — 막힘 없이 재연결</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-letter latin">I</div>
+      <div class="card-title">Integration</div>
+      <div class="card-desc">통합 · 자율성 회복<br>감각·감정·생각의 유기적 통합</div>
+      <div class="etym-block">
+        <div class="etym-row">
+          <span class="etym-label">어원</span>
+          <span class="etym-val">라틴어 <strong>integer</strong> — 온전한, 손대지 않은</span>
+        </div>
+        <div class="etym-row">
+          <span class="etym-label">본뜻</span>
+          <span class="etym-val"><strong>integrare</strong> — 전체로 만들다, 되살리다</span>
+        </div>
+        <div class="etym-row">
+          <span class="etym-label">한국어</span>
+          <span class="etym-val"><strong>알씨앗</strong> — 내재된 온전함을 깨우다</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- Bottom strip -->
+  <div class="bottom-strip">
+    <div class="strip-item">
+      <div class="strip-title">Move Different</div>
+      <div class="strip-sub">다르게 움직이다</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-title">나를 이롭게, 세상을 이롭게</div>
+      <div class="strip-sub">움직임을 통한 자기돌봄 · 자기치유 · 자기배움 · 자기발견</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-title">100세 시대, 내 몸은 내가 돌본다</div>
+      <div class="strip-sub">나는 내 몸의 전문가다</div>
+    </div>
+  </div>
+
+</body>
+</html>

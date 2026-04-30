@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARI 아리 | 자기돌봄 움직임 전문가 과정</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green:    #8BA888;
+      --gold:     #C8BE5A;
+      --green-d:  #3D4C6F;
+      --gold-d:   #A8A040;
+      --grad:     linear-gradient(135deg, #3D4C6F 0%, #8BA888 35%, #C8BE5A 75%, #D4CA6A 100%);
+      --grad-r:   linear-gradient(135deg, #D4CA6A 0%, #C8BE5A 25%, #8BA888 65%, #3D4C6F 100%);
+      --dark:     #2A3245;
+      --mid:      #8A8A88;
+      --light:    #B8B5B0;
+      --bg:       #F4F3F0;
+      --white:    #FFFFFF;
+      --border:   #DDDBD6;
+      --nav-h:    68px;
+      --px:       clamp(1.25rem, 6vw, 7rem);
+      --py:       clamp(3.5rem, 8vw, 6.5rem);
+    }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+    body { font-family: 'Noto Sans KR', sans-serif; color: var(--dark); background: var(--bg); line-height: 1.8; overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    .grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    /* ══ NAV ══ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--px);
+      background: rgba(244,243,240,.95);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(139,168,136,.12);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 28px rgba(0,0,0,.08); }
+    .nav-logo { display: flex; align-items: center; gap: .7rem; text-decoration: none; flex-shrink: 0; }
+    .nav-logo img { height: 44px; width: auto; border-radius: 10px; object-fit: contain; }
+    .nav-logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .nav-logo-text .ari-sub { font-size: .62rem; color: var(--light); letter-spacing: .04em; font-weight: 400; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--mid); font-size: .88rem; font-weight: 500; letter-spacing: .04em; transition: color .2s; white-space: nowrap; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta {
+      padding: .52rem 1.4rem; background: var(--grad); color: #fff;
+      border: none; border-radius: 50px; font-family: inherit; font-size: .85rem; font-weight: 600;
+      cursor: pointer; text-decoration: none; white-space: nowrap;
+      transition: opacity .2s, transform .2s; box-shadow: 0 4px 16px rgba(139,168,136,.3); flex-shrink: 0;
+    }
+    .nav-cta:hover { opacity: .88; transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; background: none; border: none; cursor: pointer; padding: 4px; flex-shrink: 0; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--dark); border-radius: 2px; transition: transform .3s, opacity .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-drawer { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0; z-index: 290; background: var(--bg); flex-direction: column; padding: 1.5rem var(--px) 2rem; border-top: 1px solid var(--border); overflow-y: auto; }
+    .mobile-drawer.open { display: flex; }
+    .mobile-drawer a { display: block; padding: 1rem 0; text-decoration: none; color: var(--dark); font-size: 1.05rem; font-weight: 500; border-bottom: 1px solid var(--border); }
+    .mobile-drawer .m-cta { margin-top: 1.8rem; padding: 1rem; text-align: center; background: var(--grad); color: #fff; border-radius: 14px; font-size: 1rem; font-weight: 700; border-bottom: none; }
+    /* ══ HERO ══ */
+    #hero {
+      min-height: 100vh; min-height: 100svh;
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+    }
+    #hero::before {
+      content: ''; position: absolute; top: -20%; right: -10%;
+      width: 70%; height: 130%; background: var(--grad);
+      border-radius: 50% 50% 50% 50%;
+      opacity: .13; z-index: 0;
+      -webkit-animation: orbitA 55s linear infinite;
+              animation: orbitA 55s linear infinite;
+      will-change: transform, border-radius;
+    }
+    #hero::after {
+      content: ''; position: absolute; bottom: -10%; left: -5%;
+      width: 40%; height: 60%; background: var(--grad-r);
+      border-radius: 50% 50% 50% 50%;
+      opacity: .11; z-index: 0;
+      -webkit-animation: orbitB 57s ease-in-out infinite;
+              animation: orbitB 57s ease-in-out infinite;
+      will-change: transform, border-radius;
+    }
+    @-webkit-keyframes orbitA {
+      0%    { transform: translateZ(0) translate( 160px,    0px) rotate(  0deg); border-radius: 52% 48% 50% 50% / 50% 52% 48% 50%; }
+      8%    { transform: translateZ(0) translate( 139px,   78px) rotate( 30deg); border-radius: 50% 50% 54% 46% / 54% 46% 50% 50%; }
+      17%   { transform: translateZ(0) translate(  80px,  139px) rotate( 60deg); border-radius: 48% 52% 52% 48% / 50% 50% 52% 48%; }
+      25%   { transform: translateZ(0) translate(   0px,  160px) rotate( 90deg); border-radius: 54% 46% 50% 50% / 48% 52% 50% 50%; }
+      33%   { transform: translateZ(0) translate( -80px,  139px) rotate(120deg); border-radius: 50% 50% 48% 52% / 52% 48% 54% 46%; }
+      42%   { transform: translateZ(0) translate(-139px,   78px) rotate(150deg); border-radius: 46% 54% 52% 48% / 50% 50% 48% 52%; }
+      50%   { transform: translateZ(0) translate(-160px,    0px) rotate(180deg); border-radius: 52% 48% 50% 50% / 50% 52% 48% 50%; }
+      58%   { transform: translateZ(0) translate(-139px,  -78px) rotate(210deg); border-radius: 50% 50% 54% 46% / 54% 46% 50% 50%; }
+      67%   { transform: translateZ(0) translate( -80px, -139px) rotate(240deg); border-radius: 48% 52% 52% 48% / 50% 50% 52% 48%; }
+      75%   { transform: translateZ(0) translate(   0px, -160px) rotate(270deg); border-radius: 54% 46% 50% 50% / 48% 52% 50% 50%; }
+      83%   { transform: translateZ(0) translate(  80px, -139px) rotate(300deg); border-radius: 50% 50% 48% 52% / 52% 48% 54% 46%; }
+      92%   { transform: translateZ(0) translate( 139px,  -78px) rotate(330deg); border-radius: 46% 54% 52% 48% / 50% 50% 48% 52%; }
+      100%  { transform: translateZ(0) translate( 160px,    0px) rotate(360deg); border-radius: 52% 48% 50% 50% / 50% 52% 48% 50%; }
+    }
+    @keyframes orbitA {
+      0%    { transform: translateZ(0) translate( 160px,    0px) rotate(  0deg); border-radius: 52% 48% 50% 50% / 50% 52% 48% 50%; }
+      8%    { transform: translateZ(0) translate( 139px,   78px) rotate( 30deg); border-radius: 50% 50% 54% 46% / 54% 46% 50% 50%; }
+      17%   { transform: translateZ(0) translate(  80px,  139px) rotate( 60deg); border-radius: 48% 52% 52% 48% / 50% 50% 52% 48%; }
+      25%   { transform: translateZ(0) translate(   0px,  160px) rotate( 90deg); border-radius: 54% 46% 50% 50% / 48% 52% 50% 50%; }
+      33%   { transform: translateZ(0) translate( -80px,  139px) rotate(120deg); border-radius: 50% 50% 48% 52% / 52% 48% 54% 46%; }
+      42%   { transform: translateZ(0) translate(-139px,   78px) rotate(150deg); border-radius: 46% 54% 52% 48% / 50% 50% 48% 52%; }
+      50%   { transform: translateZ(0) translate(-160px,    0px) rotate(180deg); border-radius: 52% 48% 50% 50% / 50% 52% 48% 50%; }
+      58%   { transform: translateZ(0) translate(-139px,  -78px) rotate(210deg); border-radius: 50% 50% 54% 46% / 54% 46% 50% 50%; }
+      67%   { transform: translateZ(0) translate( -80px, -139px) rotate(240deg); border-radius: 48% 52% 52% 48% / 50% 50% 52% 48%; }
+      75%   { transform: translateZ(0) translate(   0px, -160px) rotate(270deg); border-radius: 54% 46% 50% 50% / 48% 52% 50% 50%; }
+      83%   { transform: translateZ(0) translate(  80px, -139px) rotate(300deg); border-radius: 50% 50% 48% 52% / 52% 48% 54% 46%; }
+      92%   { transform: translateZ(0) translate( 139px,  -78px) rotate(330deg); border-radius: 46% 54% 52% 48% / 50% 50% 48% 52%; }
+      100%  { transform: translateZ(0) translate( 160px,    0px) rotate(360deg); border-radius: 52% 48% 50% 50% / 50% 52% 48% 50%; }
+    }
+    @-webkit-keyframes orbitB {
+      0%   { transform: translateZ(0) translate(   0px,    0px) scale(1.00); border-radius: 52% 48% 55% 45% / 55% 45% 48% 52%; }
+      25%  { transform: translateZ(0) translate( 150px, -130px) scale(1.07); border-radius: 42% 58% 48% 52% / 48% 52% 58% 42%; }
+      50%  { transform: translateZ(0) translate( 180px,  120px) scale(0.94); border-radius: 58% 42% 52% 48% / 42% 58% 52% 48%; }
+      75%  { transform: translateZ(0) translate( -80px,  150px) scale(1.05); border-radius: 58% 42% 45% 55% / 42% 58% 52% 48%; }
+      100% { transform: translateZ(0) translate(   0px,    0px) scale(1.00); border-radius: 52% 48% 55% 45% / 55% 45% 48% 52%; }
+    }
+    @keyframes orbitB {
+      0%   { transform: translateZ(0) translate(   0px,    0px) scale(1.00); border-radius: 52% 48% 55% 45% / 55% 45% 48% 52%; }
+      25%  { transform: translateZ(0) translate( 150px, -130px) scale(1.07); border-radius: 42% 58% 48% 52% / 48% 52% 58% 42%; }
+      50%  { transform: translateZ(0) translate( 180px,  120px) scale(0.94); border-radius: 58% 42% 52% 48% / 42% 58% 52% 48%; }
+      75%  { transform: translateZ(0) translate( -80px,  150px) scale(1.05); border-radius: 58% 42% 45% 55% / 42% 58% 52% 48%; }
+      100% { transform: translateZ(0) translate(   0px,    0px) scale(1.00); border-radius: 52% 48% 55% 45% / 55% 45% 48% 52%; }
+    }
+    .hero-inner { position: relative; z-index: 1; padding: 8rem 3rem 5rem var(--px); display: flex; flex-direction: column; justify-content: center; }
+    .hero-slideshow-mobile { display: none; }
+    .hero-slideshow { position: relative; z-index: 1; height: 100vh; height: 100svh; overflow: hidden; }
+    .hero-slideshow .slide, .hero-slideshow-mobile .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease; }
+    .hero-slideshow .slide.active, .hero-slideshow-mobile .slide.active { opacity: 1; }
+    .hero-slideshow .slide img, .hero-slideshow-mobile .slide img { width: 100%; height: 100%; object-fit: cover; }
+    .slide-dots { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: .5rem; z-index: 2; }
+    .slide-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.5); cursor: pointer; transition: background .3s, transform .3s; }
+    .slide-dot.active { background: #fff; transform: scale(1.3); }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: .5rem; margin-bottom: 1.3rem; font-size: .88rem; font-weight: 600; letter-spacing: .06em; color: var(--green); }
+    .hero-text h1 { font-family: 'Noto Serif KR', serif; font-size: clamp(2rem, 4.2vw, 3.4rem); font-weight: 600; line-height: 1.3; margin-bottom: 1.4rem; word-break: keep-all; }
+    .hero-text h1 strong { display: block; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-text p { color: var(--mid); font-size: 1.25rem; max-width: 440px; margin-bottom: 2rem; word-break: keep-all; text-align: left; margin-left: 0; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: .55rem; margin-bottom: 2.2rem; }
+    .hero-tag-pill { padding: .45rem 1.1rem; background: rgba(200,190,90,.12); border: 1px solid rgba(200,190,90,.3); border-radius: 16px; font-size: .78rem; font-weight: 600; color: var(--gold-d); letter-spacing: .03em; line-height: 1.5; text-align: center; display: inline-flex; flex-direction: column; align-items: center; }
+    .pill-kr { font-size: .7rem; font-weight: 400; color: var(--mid); letter-spacing: .01em; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    /* ══ BUTTONS ══ */
+    .btn-grad { display: inline-block; padding: .88rem 2rem; background: var(--grad); color: #fff; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: .95rem; white-space: nowrap; transition: opacity .2s, transform .2s, box-shadow .2s; box-shadow: 0 6px 24px rgba(139,168,136,.35); }
+    .btn-grad:hover { opacity: .88; transform: translateY(-2px); box-shadow: 0 10px 32px rgba(139,168,136,.4); }
+    .btn-line { display: inline-block; padding: .88rem 2rem; border: 2px solid var(--green); color: var(--green); border-radius: 50px; text-decoration: none; font-weight: 700; font-size: .95rem; white-space: nowrap; transition: background .2s, color .2s; }
+    .btn-line:hover { background: var(--green); color: #fff; }
+    /* ══ SECTION COMMON ══ */
+    .section-tag { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--green); border: 1px solid rgba(139,168,136,.3); border-radius: 50px; padding: .3rem .9rem; margin-bottom: 1rem; }
+    .section-title { font-family: 'Noto Serif KR', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 600; line-height: 1.25; margin-bottom: 1rem; word-break: keep-all; }
+    .section-sub { color: var(--mid); font-size: clamp(.9rem, 1.3vw, 1rem); max-width: 600px; word-break: keep-all; line-height: 1.8; }
+    /* ══ ABOUT ══ */
+    #about { padding: clamp(3rem,6vw,6rem) var(--px); background: var(--dark); color: #fff; }
+    #about .section-tag { border-color: rgba(139,168,136,.3); color: var(--green); }
+    #about .section-title { color: #fff; }
+    #about .section-sub { color: rgba(255,255,255,.55); }
+    #about .section-sub strong { color: rgba(255,255,255,.85); }
+    .about-top { margin-bottom: 1.5rem; }
+    .about-etymology { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-bottom: 3rem; }
+    .etym-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 1.8rem; }
+    .etym-char { font-family: 'Noto Serif KR', serif; font-size: 2.8rem; font-weight: 600; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: .6rem; }
+    .etym-title { font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: .5rem; }
+    .etym-desc { font-size: .88rem; color: rgba(255,255,255,.55); line-height: 1.75; }
+    .ari-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-bottom: 3rem; }
+    .ari-card { padding: 1.8rem; text-align: center; }
+    .ari-letter { font-family: 'Noto Serif KR', serif; font-size: 2.2rem; font-weight: 600; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: .5rem; }
+    .ari-word { font-size: 1.375rem; font-weight: 600; color: #fff; margin-bottom: .4rem; }
+    .ari-desc { font-size: 1.25rem; color: rgba(255,255,255,.5); line-height: 1.7; }
+    .slogan-strip { display: flex; align-items: center; gap: 2rem; padding: 2rem 0; border-top: 1px solid rgba(255,255,255,.08); flex-wrap: wrap; }
+    .slogan-item { flex: 1; min-width: 180px; }
+    .slogan-en { font-size: clamp(.95rem,1.5vw,1.1rem); font-weight: 600; color: #fff; margin-bottom: .25rem; }
+    .slogan-kr { font-size: .82rem; color: rgba(255,255,255,.5); }
+    .slogan-divider { width: 1px; height: 50px; background: rgba(255,255,255,.12); flex-shrink: 0; }
+    /* Founders */
+    .founders {
+      margin: 0 calc(-1 * var(--px)) 0;
+      padding: 3rem var(--px) 6rem;
+      background: rgba(0,0,0,.28);
+      border-top: 3px solid transparent;
+      border-image: var(--grad) 1;
+      position: relative;
+    }
+    .founders-header { margin-bottom: 1.5rem; }
+    .founders-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; }
+    .founder-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 20px; padding: 2.4rem; }
+    .founder-name { font-family: 'Noto Serif KR', serif; font-size: 1.5rem; font-weight: 600; color: #fff; margin-bottom: .4rem; }
+    .founder-role { font-size: .8rem; font-weight: 600; letter-spacing: .08em; color: var(--green); margin-bottom: 1.4rem; line-height: 1.6; }
+    .founder-divider { width: 36px; height: 2px; background: var(--grad); margin-bottom: 1.4rem; }
+    .founder-bio { font-size: 1.1rem; line-height: 1.9; color: rgba(255,255,255,.65); word-break: keep-all; }
+    .founder-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.6rem; }
+    .founder-tag { padding: .28rem .8rem; background: rgba(139,168,136,.15); border: 1px solid rgba(139,168,136,.25); border-radius: 50px; font-size: .75rem; font-weight: 500; color: var(--green); }
+    /* ══ PROGRAM ══ */
+    #programs { padding: var(--py) var(--px); background: #fff; }
+    .prog-intro { max-width: 100%; margin-bottom: 1.5rem; }
+    .prog-top { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem; }
+    .prog-box { background: var(--bg); border-radius: 16px; padding: 2rem; border: 1px solid var(--border); }
+    .prog-box h3 { font-family: 'Noto Serif KR', serif; font-size: 1.15rem; font-weight: 600; margin-bottom: 1rem; color: var(--dark); }
+    .prog-box ul { list-style: none; }
+    .prog-box ul li { font-size: .92rem; color: var(--mid); padding: .4rem 0; border-bottom: 1px solid var(--border); display: flex; gap: .6rem; }
+    .prog-box ul li:last-child { border-bottom: none; }
+    .prog-box ul li::before { content: '✦'; color: var(--green); font-size: .7rem; margin-top: .35rem; flex-shrink: 0; }
+    .checklist-no-bullet li::before { content: none !important; }
+    .prog-section-title { font-family: 'Noto Serif KR', serif; font-size: 1.4rem; font-weight: 600; color: var(--dark); margin-bottom: 1.5rem; }
+    .practice-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.2rem; margin-bottom: 3.5rem; }
+    .practice-card { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem; transition: box-shadow .2s, transform .2s; }
+    .practice-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.08); transform: translateY(-3px); }
+    .practice-num { font-size: .72rem; font-weight: 700; letter-spacing: .1em; color: var(--light); margin-bottom: .5rem; }
+    .practice-name { font-family: 'Noto Serif KR', serif; font-size: 1rem; font-weight: 600; color: var(--dark); margin-bottom: .4rem; }
+    .practice-desc { font-size: .82rem; color: var(--mid); line-height: 1.65; }
+    .flow-section { background: var(--bg); border-radius: 20px; padding: 2.5rem; margin-bottom: 3.5rem; border: 1px solid var(--border); }
+    .flow-concept { display: flex; align-items: center; gap: 3rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .flow-visual { flex: 0 0 auto; }
+    .flow-steps { display: flex; align-items: center; gap: .8rem; }
+    .flow-step { text-align: center; }
+    .flow-step-icon { width: 52px; height: 52px; border-radius: 50%; background: var(--grad); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin: 0 auto .4rem; }
+    .flow-step-label { font-size: .78rem; font-weight: 600; color: var(--dark); }
+    .flow-arrow { color: var(--light); font-size: 1.2rem; }
+    .flow-text { flex: 1; }
+    .flow-text h4 { font-family: 'Noto Serif KR', serif; font-size: 1.2rem; font-weight: 600; color: var(--dark); margin-bottom: .6rem; }
+    .flow-text p { font-size: .9rem; color: var(--mid); line-height: 1.75; }
+    .flow-features { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; }
+    .flow-feat { background: #fff; border-radius: 12px; padding: 1.2rem; border: 1px solid var(--border); }
+    .flow-feat-icon { font-size: 1.4rem; margin-bottom: .5rem; }
+    .flow-feat-title { font-size: .9rem; font-weight: 600; color: var(--dark); margin-bottom: .3rem; }
+    .flow-feat-desc { font-size: .82rem; color: var(--mid); line-height: 1.65; }
+    /* ══ CURRICULUM ══ */
+    #curriculum { padding: var(--py) var(--px); background: var(--bg); }
+    .module-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem; }
+    .module-card { background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 2.2rem; }
+    .module-active { border-color: var(--green); box-shadow: 0 0 0 1px var(--green), 0 8px 32px rgba(139,168,136,.15); }
+    .module-badge { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .12em; background: var(--grad); color: #fff; padding: .3rem .9rem; border-radius: 50px; margin-bottom: .8rem; }
+    .module-badge-2 { background: var(--grad-r); }
+    .module-card h3 { font-family: 'Noto Serif KR', serif; font-size: 1.3rem; font-weight: 600; color: var(--dark); margin-bottom: .3rem; }
+    .module-total { font-size: .85rem; color: var(--green); font-weight: 600; margin-bottom: 1.2rem; }
+    .module-details { border-top: 1px solid var(--border); padding-top: 1.2rem; }
+    .module-row { display: flex; gap: 1rem; padding: .7rem 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+    .module-row:last-child { border-bottom: none; }
+    .mrow-label { font-size: 1.1rem; font-weight: 600; color: var(--light); letter-spacing: .04em; min-width: 90px; flex-shrink: 0; line-height: 1.6; }
+    .mrow-val { font-size: 1rem; color: var(--dark); line-height: 1.7; }
+    .curriculum-topics { background: #fff; border-radius: 20px; padding: 2.2rem; border: 1px solid var(--border); }
+    .topic-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; margin-top: 1rem; }
+    .topic-item { background: var(--bg); border-radius: 12px; padding: 1.2rem; border: 1px solid var(--border); }
+    .topic-icon { font-size: 1.6rem; margin-bottom: .5rem; }
+    .topic-title { font-size: .9rem; font-weight: 600; color: var(--dark); margin-bottom: .3rem; }
+    .topic-desc { font-size: .82rem; color: var(--mid); line-height: 1.65; }
+    /* ══ APPLY ══ */
+    #contact { padding: var(--py) var(--px); background: var(--dark); color: #fff; }
+    #contact .section-tag { border-color: rgba(139,168,136,.3); color: var(--green); }
+    #contact .section-title { color: #fff; }
+    #contact .section-sub { color: rgba(255,255,255,.55); }
+    .apply-cta { text-align: center; margin-top: 3rem; }
+    .apply-cta-notice { font-size: .95rem; color: rgba(255,255,255,.55); letter-spacing: .02em; }
+    .form-submit { display: inline-block; padding: 1rem 3rem; background: var(--grad); color: #fff; border: none; border-radius: 50px; font-family: inherit; font-size: 1rem; font-weight: 700; cursor: pointer; transition: opacity .2s, transform .2s; box-shadow: 0 6px 24px rgba(139,168,136,.3); }
+    .form-submit:hover { opacity: .88; transform: translateY(-2px); }
+    /* ══ FOOTER ══ */
+    footer { background: #3D2E2A; color: rgba(255,255,255,.5); padding: 3rem var(--px); }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 3rem; margin-bottom: 2.5rem; }
+    .footer-brand img { height: 36px; width: auto; margin-bottom: 1rem; }
+    .footer-brand p { font-size: .85rem; line-height: 1.75; color: rgba(255,255,255,.4); }
+    .footer-col h4 { font-size: .82rem; font-weight: 700; letter-spacing: .1em; color: rgba(255,255,255,.7); margin-bottom: .9rem; }
+    .footer-col a, .footer-col p { display: block; font-size: .82rem; color: rgba(255,255,255,.4); text-decoration: none; padding: .25rem 0; transition: color .2s; }
+    .footer-col a:hover { color: var(--green); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: .78rem; }
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 1100px) {
+      .practice-grid { grid-template-columns: repeat(2,1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-links, .nav-cta { display: none; }
+      #hero { grid-template-columns: 1fr; grid-template-rows: auto auto; align-items: start; }
+      .hero-slideshow { display: none; }
+      .hero-slideshow-mobile {
+        display: block; position: relative; width: 100%;
+        aspect-ratio: 3/2; overflow: hidden; order: -1;
+      }
+      .hero-slideshow-mobile .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease; }
+      .hero-slideshow-mobile .slide.active { opacity: 1; }
+      .hero-slideshow-mobile .slide img { width: 100%; height: 100%; object-fit: cover; }
+      .hero-slideshow-mobile .slide-dots { position: absolute; bottom: .8rem; left: 50%; transform: translateX(-50%); display: flex; gap: .4rem; z-index: 2; }
+      .hero-inner { padding: 2.5rem var(--px) 4rem; text-align: center; }
+      .hero-text p { max-width: 100%; text-align: center !important; }
+      .hero-eyebrow { justify-content: center; }
+      .hero-tags { justify-content: center; }
+      .hero-btns { justify-content: center; }
+      .about-etymology { grid-template-columns: 1fr; gap: 0.8rem; }
+      .etym-card { display: flex; align-items: center; gap: 1.2rem; padding: 1.1rem 1.4rem; }
+      .etym-char { font-size: 2rem; margin-bottom: 0; flex-shrink: 0; }
+      .etym-title { margin-bottom: .2rem; }
+      .ari-cards { grid-template-columns: 1fr; gap: 0.8rem; }
+      .ari-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 1.4rem 1rem; }
+      .ari-letter { font-size: 1.8rem; margin-bottom: .3rem; }
+      .ari-word { grid-column: unset; grid-row: unset; }
+      .ari-desc { grid-column: unset; grid-row: unset; word-break: keep-all; }
+
+      /* ── 모바일 글씨 크기 전체 축소 ── */
+      .section-title { font-size: clamp(1.4rem, 5vw, 1.8rem) !important; }
+      .section-sub { font-size: .9rem !important; }
+      .hero-text h1 { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+      .hero-text p { font-size: 1rem !important; }
+      .ari-word { font-size: 1.1rem !important; }
+      .ari-desc { font-size: 1rem !important; }
+      /* 본문 p, li 전체 축소 */
+      #programs p, #programs li, #programs span { font-size: .88rem !important; }
+      #about p, #about li { font-size: .88rem !important; }
+      #approach-section p, #approach-section li { font-size: .88rem !important; }
+      #approach-section br, #programs br, #about br { display: none; }
+      #edu-section p, #edu-section li { font-size: .88rem !important; }
+      #curriculum p, #curriculum li { font-size: .88rem !important; }
+      #curriculum h3 { font-size: 1.1rem !important; }
+      #curriculum .mrow-label { font-size: .82rem !important; }
+      #curriculum .mrow-val, #curriculum .mrow-val span { font-size: .82rem !important; }
+      #founders .founder-bio { font-size: .88rem !important; }
+      #contact p, #contact li, #contact span { font-size: .88rem !important; }
+      /* ARI Practice / Flow 제목 */
+      #programs h3 { font-size: 1.2rem !important; }
+      /* 교육 내용/구성 2열 → 1열 */
+      .edu-grid { grid-template-columns: 1fr !important; }
+      .founders-grid { grid-template-columns: 1fr; }
+      .prog-top { grid-template-columns: 1fr; }
+      .flow-features { grid-template-columns: 1fr; }
+      .module-grid { grid-template-columns: 1fr; }
+      .topic-grid { grid-template-columns: 1fr 1fr; }
+      .apply-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-top { grid-template-columns: 1fr; }
+      .slogan-strip { flex-direction: column; gap: 0; padding: 1rem 0; }
+      .slogan-divider { width: 100%; height: 1px; }
+      .slogan-item { padding: 1rem 0; width: 100%; }
+      .slogan-en { font-size: .95rem; }
+      .slogan-kr { font-size: .78rem; }
+    }
+    @media (max-width: 480px) {
+      .practice-grid { grid-template-columns: 1fr; }
+      .flow-features { grid-template-columns: 1fr; }
+      .topic-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-btns { flex-direction: column; }
+      .hero-btns a { text-align: center; }
+      .footer-top { grid-template-columns: 1fr; }
+      .hero-text h1 { font-size: 1.5rem; }
+    }
+    @media (hover: none) { .practice-card:hover { transform: none; } }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+<!-- ══ NAV ══ -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">
+    <img src="ari-logo-black.png" alt="ARI 아리" style="height:44px;width:auto;object-fit:contain;">
+  </a>
+  <div style="flex:1;display:flex;justify-content:center;">
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#programs">Program</a></li>
+      <li><a href="#curriculum">Curriculum</a></li>
+      <li><a href="#contact">Apply</a></li>
+    </ul>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="메뉴">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<!-- Mobile Drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <a href="#about"      class="drawer-link">About</a>
+  <a href="#programs"   class="drawer-link">Program</a>
+  <a href="#curriculum" class="drawer-link">Curriculum</a>
+  <a href="#contact"    class="drawer-link">Apply</a>
+</div>
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-slideshow-mobile" id="heroSlideshowMobile">
+    <div class="slide active"><img src="hero-mobile-1.png" alt="ARI 1"></div>
+    <div class="slide"><img src="hero-mobile-2.png" alt="ARI 2"></div>
+    <div class="slide"><img src="hero-mobile-3.png" alt="ARI 3"></div>
+    <div class="slide"><img src="hero-mobile-4.png" alt="ARI 4"></div>
+    <div class="slide"><img src="hero-mobile-5.png" alt="ARI 5"></div>
+    <div class="slide"><img src="hero-mobile-6.png" alt="ARI 6"></div>
+    <div class="slide-dots" id="slideDotsMobile"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="hero-eyebrow">✦ 감각인지기반 자기돌봄 움직임 전문가 과정</span>
+      <h1><strong>움직임으로 나를 돌보다</strong></h1>
+      <p>움직임을 통해 감각•감정•생각을 알아차리고 조절하는 자기돌봄 움직임 학습과정입니다.<br>'나'를 이해하고 스스로 회복하는 능력을 기릅니다.<br><br>신경가소성을 바탕으로 움직임•감각•인지를 통합하며 신경계를 재조직화하고 자기 인식을 확장하는 자기배움(Self-learning)입니다.</p>
+    </div>
+  </div>
+  <div class="hero-slideshow" id="heroSlideshow">
+    <div class="slide active"><img src="hero-slide-2.png" alt="ARI 2"></div>
+    <div class="slide"><img src="hero-slide-3.png" alt="ARI 3"></div>
+    <div class="slide"><img src="hero-slide-4.png" alt="ARI 4"></div>
+    <div class="slide"><img src="hero-slide-5.png" alt="ARI 5"></div>
+    <div class="slide"><img src="hero-slide-6.png" alt="ARI 6"></div>
+    <div class="slide"><img src="hero-slide-7.png" alt="ARI 7"></div>
+    <div class="slide"><img src="hero-slide-8.png" alt="ARI 8"></div>
+    <div class="slide"><img src="hero-slide-9.png" alt="ARI 9"></div>
+    <div class="slide"><img src="hero-slide-10.png" alt="ARI 10"></div>
+    <div class="slide"><img src="hero-slide-11.png" alt="ARI 11"></div>
+    <div class="slide"><img src="hero-slide-12.png" alt="ARI 12"></div>
+    <div class="slide-dots" id="slideDots"></div>
+  </div>
+</section>
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="about-top reveal">
+    <span class="section-tag">About ARI</span>
+    <img src="ari-logo-white.png" alt="ARI 아리" style="height:160px;width:auto;margin:2rem auto 2.5rem;display:block;">
+    <div style="width:100%;text-align:center;display:flex;flex-direction:column;align-items:center;gap:0;margin-bottom:1.5rem;">
+      <p style="font-family:'Noto Serif KR',serif;font-size:1.1rem;color:rgba(255,255,255,.88);line-height:2;word-break:keep-all;">
+        <span style="background:linear-gradient(135deg,#8BA888,#C8BE5A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600;">ㅇ·ㄹ</span> 는 지금, 여기에서 생명의 시원인 우주의 숨과 멈추지 않는 움직임을 뜻합니다.
+      </p>
+      <div style="width:32px;height:1px;background:linear-gradient(90deg,transparent,rgba(139,168,136,.4),transparent);margin:.9rem auto;"></div>
+      <p style="font-family:'Noto Serif KR',serif;font-size:1.1rem;color:rgba(255,255,255,.6);line-height:2;word-break:keep-all;">
+        더 이상 보탤 것도 뺄 것도 없는 꾸밈 없는 본래의 몸을 지향합니다.
+      </p>
+      <div style="width:32px;height:1px;background:linear-gradient(90deg,transparent,rgba(139,168,136,.4),transparent);margin:.9rem auto;"></div>
+      <p style="font-family:'Noto Serif KR',serif;font-size:1.1rem;color:rgba(255,255,255,.6);line-height:2;word-break:keep-all;">
+        ARI는 몸과 마음 얼(영)을 통합하며 나를 깨닫는 여정입니다.
+      </p>
+    </div>
+  </div>
+
+
+  <div class="ari-cards reveal">
+    <div class="ari-card">
+      <div class="ari-letter">A</div>
+      <div class="ari-word">Awareness</div>
+      <div class="ari-desc">감각 인지 · 알아차림<br>몸의 신호를 섬세하게 인식</div>
+    </div>
+    <div class="ari-card">
+      <div class="ari-letter">R</div>
+      <div class="ari-word">Regulation</div>
+      <div class="ari-desc">신경계 재조직 · 패턴 전환<br>습관적 긴장을 내려놓고 재조직</div>
+    </div>
+    <div class="ari-card">
+      <div class="ari-letter">I</div>
+      <div class="ari-word">Integration</div>
+      <div class="ari-desc">통합 · 자율성 회복<br>감각·감정·생각의 유기적 통합</div>
+    </div>
+  </div>
+</section>
+<!-- ══ APPROACH ══ -->
+<section id="approach-section" style="background:#fff;padding:var(--py) var(--px) 2rem;">
+  <div id="approach" class="reveal" style="padding-bottom:var(--py);border-bottom:1px solid var(--border);margin-bottom:2.5rem;text-align:center;">
+    <h2 class="section-title" style="text-align:center;">움직임은 곧 삶입니다</h2>
+    <div style="text-align:center;display:flex;flex-direction:column;gap:1.4rem;margin-top:1.8rem;">
+      <p style="font-size:1.1rem;color:var(--mid);line-height:2;word-break:keep-all;">ARI는 펠든크라이스 메소드(Feldenkrais Method®)와 제레미크라우스 접근법(Jeremy Krauss Approach)을 바탕으로 설계된 감각인지 기반 움직임 교육입니다.</p>
+      <p style="font-size:1.1rem;color:var(--mid);line-height:2;word-break:keep-all;">감각을 인지하고 근골격계의 협응과 운동조절 능력을 학습하며 신경계의 자기 조절을 돕는 신경생리학적 학습과정입니다.</p>
+      <p style="font-size:1.1rem;color:var(--mid);line-height:2;word-break:keep-all;">또한 몸을 느끼고 표현하는 예술적 경험을 통해 회복과 자기치유의 장을 제공합니다.</p>
+    </div>
+  </div>
+  <div class="reveal" style="padding-bottom:0;">
+    <h2 class="section-title" style="text-align:center;">자기돌봄 서로돌봄</h2>
+    <div style="display:flex;flex-direction:column;gap:1.6rem;text-align:center;">
+      <p style="font-size:1.1rem;color:var(--mid);line-height:1.9;word-break:keep-all;">우리는 몸이 아프거나 통증이 느껴질 때 비로소 몸을 들여다봅니다. 그리고 병원과 전문가를 찾아 진단을 받고 치료를 시작합니다. 외부의 판단과 평가에 의존하는 사이, 우리는 스스로 이해하고 돌볼 수 있는 기회를 점점 놓치게 됩니다.</p>
+      <p style="font-size:1.1rem;color:var(--mid);line-height:1.9;word-break:keep-all;">ARI는 몸을 외부의 대상이 아니라 스스로 돌볼 수 있는 주체로 바라봅니다.<br>본래 우리에게 있는 몸의 자율성과 지혜에 귀 기울입니다.<br>나를 돌보고 회복하는 힘은 누구에게나 열려 있는 보편적인 능력입니다.<br>ARI는 움직임을 통해 그 능력을 다시 깨우고 기르는 교육입니다.</p>
+      <p style="font-size:1.1rem;color:var(--mid);line-height:1.9;word-break:keep-all;">자기돌봄은 나에게 머무르지 않습니다.<br>나의 감각에 귀 기울이고 자신을 존중하는 태도는 자연스럽게 다른 사람에게로 이어집니다.<br>나의 취약성을 받아들일 수 있을 때, 우리는 서로에게 눈길을 건네고 손길을 내밀며 곁을 내줄 수 있습니다.<br>이 과정에서 길러지는 경청과 조절의 힘은 관계 속에서 서로를 지지하고 돌보는 힘으로 확장됩니다.<br>ARI는 자기돌봄이 서로돌봄으로 이어지는 실천입니다.</p>
+      <p style="font-size:1.1rem;color:var(--mid);line-height:1.9;word-break:keep-all;">ARI는 누구에게나 열려 있습니다.<br>복잡한 도구나 환경에 의존하지 않고 언제 어디서나 맨몸으로 이어갈 수 있는 움직임의 방식을 제안합니다.<br>쉽고 단순하지만 반복을 통해 일상 속에서 지속 가능한 자기 수련의 과정입니다.</p>
+      <p style="font-size:1.1rem;color:var(--dark);line-height:1.9;word-break:keep-all;font-weight:700;">ARI는 움직임을 통해 몸과 마음을 회복하고 자기돌봄의 보편적인 가능성을 삶 속에서 실현하는 길입니다.</p>
+    </div>
+  </div>
+</section>
+<!-- ══ PROGRAM ══ -->
+<section id="programs" style="background:#fff;">
+  <div class="prog-intro reveal" style="border-top:1px solid var(--border);padding-top:var(--py);">
+    <span class="section-tag">Program</span>
+    <h2 class="section-title">ARI 전문가 과정 소개</h2>
+    <p style="font-size:1rem;color:var(--mid);line-height:2;margin-top:1rem;word-break:normal;overflow-wrap:break-word;">주의(attention), 경청(listening), 관찰(observation), 억제(inhibition), 비판단(non-judgement), 방향(direction), 구별(differentiation) 등 소매틱스의 핵심 원리를 자기 경험을 통해<br>체화하며 자기 이해의 가능성을 확장합니다. 이는 실제적인 움직임 학습 과정인 ARI practice와 ARI flow로 구체화됩니다.</p>
+  </div>
+  <div class="reveal" style="margin-bottom:2.5rem;">
+    <div class="prog-box" style="max-width:100%;">
+      <h3 style="font-family:'Noto Serif KR',serif;font-size:1.3rem;font-weight:600;color:var(--dark);margin-bottom:.8rem;">ARI Practice</h3>
+      <p style="font-size:1.1rem;color:var(--mid);line-height:1.9;margin-bottom:.6rem;">교사의 안내에 따라 움직이며 감각과 주의를 조절하는 경험을 통해 자기 사용 방식을 탐구하는 과정입니다.</p>
+      <p style="font-size:1.1rem;color:var(--mid);line-height:1.9;margin-bottom:1.4rem;">모듈 1은 호흡편 · 척추편 · 골반편 · 어깨편으로 구성되어 있습니다.</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.6rem;">
+        <li style="font-size:1.1rem;color:var(--dark);display:flex;gap:.6rem;">다양한 자기-사용 방식 탐구 (Different way)</li>
+        <li style="font-size:1.1rem;color:var(--dark);display:flex;gap:.6rem;">주의 조절 및 전환 능력 확장</li>
+        <li style="font-size:1.1rem;color:var(--dark);display:flex;gap:.6rem;">차이를 인지하는 감각의 섬세함</li>
+        <li style="font-size:1.1rem;color:var(--dark);display:flex;gap:.6rem;">신체구조와 기능의 연결</li>
+        <li style="font-size:1.1rem;color:var(--dark);display:flex;gap:.6rem;">민감성 및 신체 인식 향상</li>
+        <li style="font-size:1.1rem;color:var(--dark);display:flex;gap:.6rem;">자세별 중력과의 관계 탐구</li>
+        <li style="font-size:1.1rem;color:var(--dark);display:flex;gap:.6rem;">가동성• 안정성• 균형• 제어 능력 향상</li>
+        <li style="font-size:1.1rem;color:var(--dark);display:flex;gap:.6rem;">의도와 행동의 조화</li>
+      </ul>
+      <div style="border-top:1px solid var(--border);padding-top:1rem;display:flex;gap:2rem;flex-wrap:wrap;">
+        <span style="font-size:1.1rem;color:var(--mid);">·주제별 12개 ARI Practice</span>
+        <span style="font-size:1.1rem;color:var(--mid);">·모듈 1 총 36개 스크립트 제공</span>
+      </div>
+    </div>
+  </div>
+  <div class="reveal" style="margin-bottom:2.5rem;">
+    <div class="prog-box" style="max-width:100%;">
+      <h3 style="font-family:'Noto Serif KR',serif;font-size:1.3rem;font-weight:600;color:var(--dark);margin-bottom:.8rem;">ARI Flow</h3>
+      <p style="font-size:1.1rem;color:var(--mid);line-height:1.9;margin-bottom:.8rem;">언제 어디서나 몸과 마음을 회복하고 조율할 수 있는 자기 수련 움직임 시퀀스입니다.</p>
+      <p style="font-size:1.1rem;color:var(--mid);line-height:1.9;margin-bottom:1.4rem;">3개의 MOVE가 연결되어 하나의 유기적인 흐름, ARI Flow를 만듭니다.</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:.55rem;">
+        <li style="font-size:1.1rem;color:var(--dark);display:flex;gap:.6rem;">움직임의 유동적 흐름</li>
+        <li style="font-size:1.1rem;color:var(--dark);display:flex;gap:.6rem;">자세 전환 및 협응 능력 향상</li>
+        <li style="font-size:1.1rem;color:var(--dark);display:flex;gap:.6rem;">감각 기반의 정교한 조절 능력</li>
+        <li style="font-size:1.1rem;color:var(--dark);display:flex;gap:.6rem;">효율적인 신체 사용과 통합</li>
+        <li style="font-size:1.1rem;color:var(--dark);display:flex;gap:.6rem;">고유한 자기표현의 확장</li>
+        <li style="font-size:1.1rem;color:var(--dark);display:flex;gap:.6rem;">자연스러움과 자발성의 회복</li>
+        <li style="font-size:1.1rem;color:var(--dark);display:flex;gap:.6rem;">움직임을 통한 자유로움</li>
+      </ul>
+      <div style="border-top:1px solid var(--border);padding-top:1rem;display:flex;gap:2rem;flex-wrap:wrap;margin-top:1.4rem;">
+        <span style="font-size:1.1rem;color:var(--mid);">·주제별 3개 ARI Flow</span>
+        <span style="font-size:1.1rem;color:var(--mid);">·모듈 1 총 12개 영상 제공</span>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ══ 교육 내용/구성 ══ -->
+<section id="edu-section" style="background:var(--dark);padding:var(--py) var(--px);">
+  <div class="reveal edu-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;">
+    <div>
+      <p style="font-size:1.1rem;font-weight:700;color:var(--green);margin-bottom:1rem;">교육 내용</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0;">
+        <li style="font-size:1.1rem;color:rgba(255,255,255,.8);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span>감각 기반의 움직임 인식과 조절</li>
+        <li style="font-size:1.1rem;color:rgba(255,255,255,.8);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span>주의 조절과 사용</li>
+        <li style="font-size:1.1rem;color:rgba(255,255,255,.8);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span>공간 방향성과 움직임 패턴</li>
+        <li style="font-size:1.1rem;color:rgba(255,255,255,.8);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span>자세 전환과 중력의 관계</li>
+        <li style="font-size:1.1rem;color:rgba(255,255,255,.8);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span>선택적 움직임과 통합</li>
+        <li style="font-size:1.1rem;color:rgba(255,255,255,.8);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span>움직임 관찰• 설명•실행</li>
+        <li style="font-size:1.1rem;color:rgba(255,255,255,.8);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span>움직임 제어와 협응</li>
+        <li style="font-size:1.1rem;color:rgba(255,255,255,.8);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span>균형 감각과 근수축조절 기능의 회복</li>
+        <li style="font-size:1.1rem;color:rgba(255,255,255,.8);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span>긴장과 이완의 균형 조절</li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:1.1rem;font-weight:700;color:var(--green);margin-bottom:1rem;">교육 구성</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0;">
+        <li style="font-size:1.1rem;color:rgba(255,255,255,.8);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span>호흡편• 척추편 • 골반편• 어깨편으로 구성된 주요 부위의 기능적 움직임 학습</li>
+        <li style="font-size:1.1rem;color:rgba(255,255,255,.8);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span>소매틱 원리와 기능 해부학의 통합적 이해</li>
+        <li style="font-size:1.1rem;color:rgba(255,255,255,.8);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span>셀프 핸즈온 기법</li>
+        <li style="font-size:1.1rem;color:rgba(255,255,255,.8);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span>펠든크라이스 메소드와 제레미크라우스 접근법을 기반으로 K-소마틱스를 지향하며 독창적인 ARI practice와 ARI flow 개발</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- ══ CURRICULUM ══ -->
+<section id="curriculum">
+  <div class="reveal">
+    <span class="section-tag">Curriculum</span>
+    <h2 class="section-title">교육과정</h2>
+    <p class="section-sub">모듈 1 기본과정과 모듈 2 심화과정으로 구성된 단계별 전문가 양성 과정.</p>
+  </div>
+  <div class="reveal" style="margin-top:1.5rem;margin-bottom:2.5rem;">
+    <div class="module-card module-active">
+      <div class="module-badge">Module 1</div>
+      <h3>기본과정</h3>
+      <div class="module-total">총 90시간</div>
+      <div class="module-details">
+        <div class="module-row">
+          <span class="mrow-label" style="font-weight:700; color:var(--green-d);">수업 시간</span>
+          <span class="mrow-val" style="font-size:1rem; color:var(--mid); line-height:1.9;">
+            <strong style="color:var(--dark);">대면</strong> · 토·일 오후 2–7시 (5시간)<br>
+            <strong style="color:var(--dark);">온라인</strong> · 토 오후 2시 (2시간 30분)
+          </span>
+        </div>
+        <div class="module-row" style="align-items:flex-start;">
+          <span class="mrow-label" style="font-weight:700; color:var(--green-d);">세그먼트 1</span>
+          <span class="mrow-val" style="display:flex; flex-direction:column; gap:.7rem; font-size:1rem; color:var(--mid); line-height:1.9;">
+            <span><strong style="color:var(--dark);">호흡편</strong> · 9/5–6, 9/19–20 &nbsp;|&nbsp; 온라인 10/10</span>
+            <span><strong style="color:var(--dark);">척추편</strong> · 10/24–25, 11/7–8 &nbsp;|&nbsp; 온라인 11/21</span>
+          </span>
+        </div>
+        <div class="module-row" style="align-items:flex-start;">
+          <span class="mrow-label" style="font-weight:700; color:var(--green-d);">세그먼트 2</span>
+          <span class="mrow-val" style="display:flex; flex-direction:column; gap:.7rem; font-size:1rem; color:var(--mid); line-height:1.9;">
+            <span><strong style="color:var(--dark);">골반편</strong> · 1/9–10, 1/23–24 &nbsp;|&nbsp; 온라인 1/30</span>
+            <span><strong style="color:var(--dark);">어깨편</strong> · 2/27–28, 3/13–14 &nbsp;|&nbsp; 온라인 3/27</span>
+          </span>
+        </div>
+      </div>
+      <a href="#contact" class="btn-grad" style="margin-top:1.5rem;text-align:center;display:block;">수강 신청하기</a>
+    </div>
+  </div>
+
+  <div class="curriculum-topics reveal">
+    <h3 style="font-family:'Noto Serif KR',serif;font-size:1.1rem;margin-bottom:1.5rem;">아리를 추천합니다</h3>
+    <ul style="list-style:none;display:flex;flex-direction:column;">
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:1.1rem;color:var(--dark);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>몸의 소리에 귀 기울이며 나를 더 이해하고 싶은 분</li>
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:1.1rem;color:var(--dark);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>움직임을 통해 자기돌봄, 서로돌봄을 실천하고 싶은 분</li>
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:1.1rem;color:var(--dark);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>감각, 감정, 생각의 변화를 알아차리고 싶은 분</li>
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:1.1rem;color:var(--dark);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>스스로 긴장을 조절하고 회복의 방법을 배우고 싶은 분</li>
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:1.1rem;color:var(--dark);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>나답게 움직이는 법을 찾고 싶은 분</li>
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;font-size:1.1rem;color:var(--dark);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>필라테스, 요가, 무용 강사, 움직임 교육 전문가로서 소매틱스 원리를 배우고 방법론을 확장하고 싶은 분</li>
+    </ul>
+  </div>
+</section>
+<!-- ══ FOUNDERS ══ -->
+<section id="founders" style="background:var(--dark);padding:0 var(--px);">
+  <div class="founders reveal">
+    <div class="founders-header">
+      <span class="section-tag">ARI를 만든 사람</span>
+      <h2 class="section-title" style="color:#fff;">ARI Founder</h2>
+    </div>
+    <div class="founders-grid">
+      <div class="founder-card">
+        <div class="founder-name">김윤진</div>
+        <div class="founder-role">펠든JKA 무브 대표</div>
+        <div class="founder-divider"></div>
+        <p class="founder-bio">
+          움직이는 모든 것에 매료되는 사람입니다. 한국춤을 수련하며 안무와 창작, 예술교육 분야에서 30년 넘게 몸으로 배우고 탐구해왔습니다.<br><br>
+          춤추는 기쁨과 함께 부상과 만성 통증을 겪었고 중년기에 들이닥친 번아웃을 경험하며 몸의 한계와 마주했습니다. 그 과정에서 펠든크라이스 메소드를 만나 이전과는 전혀 다른 방식으로 몸을 인식하고 조절하는 경험을 하게 되었습니다.<br><br>
+          이 경험을 계기로 국제 공인 펠든크라이스 전문가가 되었고 이어 JKA(Jeremy Krauss Approach) 전문가 과정을 이수하며 감각과 움직임을 기반으로 한 학습 체계를 깊이 탐구해왔습니다.<br><br>
+          현재 압구정동에서 &lt;펠든 JKA 무브&gt;를 운영하며 움직임을 통해 자신을 이해하고 돌보는 과정을 교육하고 있습니다. 또한 &lt;한국 JKA 운동발달 전문가 협회&gt; 회장으로 활동하며 교육과 연구를 이어가고 있습니다.<br><br>
+          이러한 경험을 바탕으로 감각·인지·움직임을 통합하는 자기돌봄 움직임 교육 체계 ARI를 개발했습니다.<br><br>
+          여전히 배우는 사람으로서, 몸을 통해 나를 이해하는 과정이 삶을 바꿀 수 있는 힘이 된다고 생각합니다.
+        </p>
+        <div style="margin-top:1.6rem;border-top:1px solid rgba(255,255,255,.08);padding-top:1.4rem;">
+          <p style="font-size:.78rem;font-weight:600;letter-spacing:.08em;color:var(--green);margin-bottom:.9rem;">경력</p>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.55rem;">
+            <li style="font-size:.92rem;color:rgba(255,255,255,.65);display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>국제공인 펠든크라이스 메소드(Feldenkrais Method®) 전문가</li>
+            <li style="font-size:.92rem;color:rgba(255,255,255,.65);display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>제레미크라우스 접근법(Jeremy Krauss Approach) 전문가</li>
+            <li style="font-size:.92rem;color:rgba(255,255,255,.65);display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>이화여자대학교 대학원 운동심리학 박사</li>
+            <li style="font-size:.92rem;color:rgba(255,255,255,.65);display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>국민대학교 공연예술학부 무용전공 교수 역임</li>
+            <li style="font-size:.92rem;color:rgba(255,255,255,.65);display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>서울문화재단 서울댄스프로젝스 기획감독 역임</li>
+            <li style="font-size:.92rem;color:rgba(255,255,255,.65);display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>한국문화예술교육진흥원 이사 역임</li>
+          </ul>
+        </div>
+      </div>
+      <div class="founder-card">
+        <div class="founder-name">임소연</div>
+        <div class="founder-role">공동창립자 · 국제 공인 펠든크라이스 전문가 · JKA 교사</div>
+        <div class="founder-divider"></div>
+        <p class="founder-bio">
+          평생 춤을 추며 살아갈 것이라 믿었습니다. 하지만 어느 날, 류마티스 관절염으로 더 이상 춤을 이어갈 수 없게 되었고, 내 몸을 위해 내가 해줄 수 있는 것이 없다는 사실에 깊은 절망을 느끼던 순간 펠든크라이스를 만나게 되었습니다.<br><br>
+          그 배움은 나이가 들어서도 더 자유롭게 움직일 수 있다는 희망과 가능성을 다시 품게 해주었습니다. 이후 유방암 진단을 받고 고된 치료의 시간도 펠든크라이스와 함께 견뎌냈습니다. 두려움보다는 담담히 마주하는 힘을 펠든을 통해 배웠습니다.<br><br>
+          어떤 순간에도 움직일 수 있다면 스스로 돌보는 삶을 살 수 있다고 믿습니다. 현재는 누구나 자신의 몸의 주체가 되어 내 안의 감각과 가능성을 깨우는 움직임을 안내하고 있습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ══ ARI 연구원 ══ -->
+<section id="researchers" style="background:var(--dark);padding:var(--py) var(--px);border-top:1px solid rgba(255,255,255,.08);">
+  <div class="reveal" style="margin-bottom:3rem;">
+    <span class="section-tag">ARI 연구원</span>
+    <h2 class="section-title" style="color:#fff;">연구원 소개</h2>
+  </div>
+  <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+    <!-- 연구원 카드 1 -->
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.8rem 1.5rem;">
+      <div style="font-size:1.1rem;font-weight:600;color:#fff;margin-bottom:1rem;">정은경</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem;">
+        <li style="font-size:.88rem;color:rgba(255,255,255,.65);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>필라테스 지도자 자격수료</li>
+        <li style="font-size:.88rem;color:rgba(255,255,255,.65);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>자이로토닉 지도자 자격수료</li>
+        <li style="font-size:.88rem;color:rgba(255,255,255,.65);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>국제공인 펠든크라이스 전문가</li>
+        <li style="font-size:.88rem;color:rgba(255,255,255,.65);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>JKA - DHO<br>(Developmental Hands-On) 교사</li>
+        <li style="font-size:.88rem;color:rgba(255,255,255,.65);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>JKA - FHO<br>(Functional Hands-On) 교사</li>
+      </ul>
+    </div>
+    <!-- 연구원 카드 2 -->
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.8rem 1.5rem;">
+      <div style="font-size:1.1rem;font-weight:600;color:#fff;margin-bottom:1rem;">허지원</div>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem;">
+        <li style="font-size:.88rem;color:rgba(255,255,255,.65);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>JKA - ATM®<br>(Abilities Through Movement) 교사</li>
+        <li style="font-size:.88rem;color:rgba(255,255,255,.65);display:flex;gap:.5rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>JKA - FHO<br>(Functional Hands-On) 교사</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- ══ APPLY ══ -->
+<section id="contact">
+  <div class="reveal">
+    <span class="section-tag">Apply</span>
+    <h2 class="section-title">수강 신청</h2>
+    <p class="section-sub">2026년 9월 코스 수강 신청을 받고 있습니다.</p>
+  </div>
+  <div class="reveal" style="margin-top:2.5rem;margin-bottom:2.5rem;max-width:480px;">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:.8rem;margin-bottom:.2rem;">
+      <span style="font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);">수강료 안내</span>
+      <span style="font-size:.78rem;color:rgba(255,255,255,.25);">정원 16명</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid rgba(255,255,255,.08);">
+      <span style="font-size:.9rem;color:rgba(255,255,255,.5);">접수비</span>
+      <span style="font-size:.95rem;color:rgba(255,255,255,.85);">100,000원 <span style="font-size:.78rem;color:rgba(255,255,255,.3);">(환불 불가)</span></span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid rgba(255,255,255,.08);">
+      <span style="font-size:.9rem;color:rgba(255,255,255,.5);">등록금</span>
+      <span style="font-size:.95rem;color:rgba(255,255,255,.85);">3,300,000원 <span style="font-size:.78rem;color:rgba(255,255,255,.3);">(부가세 포함)</span></span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid rgba(255,255,255,.08);">
+      <span style="font-size:.9rem;color:rgba(255,255,255,.5);">조기 등록</span>
+      <span style="font-size:.95rem;color:rgba(255,255,255,.85);">3,000,000원 <span style="font-size:.78rem;color:#8BA888;font-weight:600;">10% 할인</span> <span style="font-size:.78rem;color:rgba(255,255,255,.3);">(부가세 포함)</span></span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);">
+      <span style="font-size:.9rem;color:rgba(255,255,255,.5);">세그별 등록</span>
+      <span style="font-size:.95rem;color:rgba(255,255,255,.85);">1,980,000원 <span style="font-size:.78rem;color:rgba(255,255,255,.3);">(부가세 포함)</span></span>
+    </div>
+  </div>
+  <div class="apply-cta reveal">
+    <p class="apply-cta-notice">수강 신청은 사전 상담을 통해 진행됩니다.</p>
+    <a href="apply.html" class="form-submit" style="display:inline-block;text-align:center;text-decoration:none;padding:1.1rem 3.5rem;margin-top:1.5rem;">수강 신청하기</a>
+  </div>
+</section>
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="ari-logo.png" alt="ARI">
+      <p>감각인지기반 움직임 전문가 과정<br>자기돌봄 · 자기치유 · 자기배움 · 자기발견</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <a href="#about">About</a>
+      <a href="#programs">Program</a>
+      <a href="#curriculum">Curriculum</a>
+      <a href="#contact">Apply</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>펠든크라이스 무브</p>
+      <p>서울 압구정동</p>
+      <a href="#contact">문의하기</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 ARI 아리. All rights reserved.</span>
+    <span>자기돌봄 움직임 전문가 과정</span>
+  </div>
+</footer>
+<script>
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', scrollY > 30); });
+  const ham = document.getElementById('hamburger');
+  const drawer = document.getElementById('mobileDrawer');
+  ham.addEventListener('click', () => { ham.classList.toggle('open'); drawer.classList.toggle('open'); });
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); drawer.classList.remove('open'); }));
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  (function() {
+    const slides = document.querySelectorAll('#heroSlideshow .slide');
+    const dotsContainer = document.getElementById('slideDots');
+    let current = 0, timer;
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    });
+    function goTo(idx) {
+      slides[current].classList.remove('active'); dotsContainer.children[current].classList.remove('active');
+      current = idx;
+      slides[current].classList.add('active'); dotsContainer.children[current].classList.add('active');
+    }
+    function startTimer() { timer = setInterval(() => goTo((current + 1) % slides.length), 3500); }
+    const el = document.getElementById('heroSlideshow');
+    el.addEventListener('mouseenter', () => clearInterval(timer));
+    el.addEventListener('mouseleave', startTimer);
+    startTimer();
+  })();
+  (function() {
+    const slides = document.querySelectorAll('#heroSlideshowMobile .slide');
+    const dotsContainer = document.getElementById('slideDotsMobile');
+    if (!slides.length) return;
+    let current = 0, timer;
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    });
+    function goTo(idx) {
+      slides[current].classList.remove('active'); dotsContainer.children[current].classList.remove('active');
+      current = idx;
+      slides[current].classList.add('active'); dotsContainer.children[current].classList.add('active');
+    }
+    function startTimer() { timer = setInterval(() => goTo((current + 1) % slides.length), 3500); }
+    const el = document.getElementById('heroSlideshowMobile');
+    el.addEventListener('mouseenter', () => clearInterval(timer));
+    el.addEventListener('mouseleave', startTimer);
+    startTimer();
+  })();
+</script>
+</body>
+</html>
