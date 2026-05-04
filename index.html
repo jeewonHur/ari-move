@@ -183,6 +183,8 @@
       .ari-cards { grid-template-columns: 1fr; gap: .8rem; }
       .ari-card { display: flex; align-items: center; gap: 1.2rem; padding: 1.2rem; text-align: left; }
       .ari-letter { font-size: 1.8rem; margin-bottom: 0; flex-shrink: 0; }
+      .ari-text-wrap { display: flex; flex-direction: column; }
+      .ari-word { margin-bottom: .2rem; }
     }
 
     /* ══ FOOTER ══ */
@@ -360,18 +362,24 @@
   <div class="ari-cards reveal">
     <div class="ari-card">
       <div class="ari-letter">A</div>
-      <div class="ari-word">Awareness</div>
-      <div class="ari-desc">감각 인지 · 알아차림<br>몸의 신호를 섬세하게 인식</div>
+      <div class="ari-text-wrap">
+        <div class="ari-word">Awareness</div>
+        <div class="ari-desc">감각 인지 · 알아차림<br>몸의 신호를 섬세하게 인식</div>
+      </div>
     </div>
     <div class="ari-card">
       <div class="ari-letter">R</div>
-      <div class="ari-word">Regulation</div>
-      <div class="ari-desc">신경계 재조직 · 패턴 전환<br>습관적 긴장을 내려놓고 재조직</div>
+      <div class="ari-text-wrap">
+        <div class="ari-word">Regulation</div>
+        <div class="ari-desc">신경계 재조직 · 패턴 전환<br>습관적 긴장을 내려놓고 재조직</div>
+      </div>
     </div>
     <div class="ari-card">
       <div class="ari-letter">I</div>
-      <div class="ari-word">Integration</div>
-      <div class="ari-desc">통합 · 자율성 회복<br>감각·감정·생각의 유기적 통합</div>
+      <div class="ari-text-wrap">
+        <div class="ari-word">Integration</div>
+        <div class="ari-desc">통합 · 자율성 회복<br>감각·감정·생각의 유기적 통합</div>
+      </div>
     </div>
   </div>
 
