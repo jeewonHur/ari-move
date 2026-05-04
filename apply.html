@@ -3,271 +3,251 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ARI 아리 | 상담 신청</title>
+  <title>ARI 아리 | Apply</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --green:    #8BA888;
       --gold:     #C8BE5A;
       --green-d:  #3D4C6F;
       --gold-d:   #A8A040;
       --grad:     linear-gradient(135deg, #3D4C6F 0%, #8BA888 35%, #C8BE5A 75%, #D4CA6A 100%);
-      --grad-r:   linear-gradient(135deg, #D4CA6A 0%, #C8BE5A 25%, #8BA888 65%, #3D4C6F 100%);
       --dark:     #2A3245;
       --mid:      #8A8A88;
       --light:    #B8B5B0;
       --bg:       #F4F3F0;
-      --white:    #FFFFFF;
       --border:   #DDDBD6;
       --nav-h:    68px;
       --px:       clamp(1.25rem, 6vw, 7rem);
+      --py:       clamp(3.5rem, 8vw, 6.5rem);
     }
-
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-    body { font-family: 'Noto Sans KR', sans-serif; color: var(--dark); background: var(--dark); line-height: 1.8; min-height: 100vh; }
-
-    .grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    body { font-family: 'Noto Sans KR', sans-serif; color: var(--dark); background: var(--bg); line-height: 1.8; min-height: 100vh; overflow-x: hidden; }
 
     /* ══ NAV ══ */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
-      height: var(--nav-h);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 var(--px);
-      background: rgba(42,50,69,.95);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(139,168,136,.15);
-    }
-    .nav-logo { display: flex; align-items: center; gap: .7rem; text-decoration: none; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 300; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; padding: 0 var(--px); background: rgba(244,243,240,.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(139,168,136,.15); }
+    .nav-logo { display: flex; align-items: center; gap: .7rem; text-decoration: none; flex-shrink: 0; }
     .nav-logo img { height: 44px; width: auto; border-radius: 10px; object-fit: contain; }
-    .nav-logo-text { display: flex; flex-direction: column; line-height: 1.2; }
-    .nav-logo-text .ari-name { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; font-weight: 600; color: #fff; }
-    .nav-logo-text .ari-sub { font-size: .62rem; color: var(--light); letter-spacing: .04em; font-weight: 400; }
-    .back-btn {
-      display: flex; align-items: center; gap: .5rem;
-      font-size: .85rem; color: rgba(255,255,255,.55);
-      text-decoration: none; transition: color .2s;
-    }
-    .back-btn:hover { color: var(--green); }
-    .back-btn svg { width: 16px; height: 16px; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links > li { position: relative; }
+    .nav-links > li > a { display: flex; align-items: center; gap: .25rem; text-decoration: none; color: var(--mid); font-size: .88rem; font-weight: 500; letter-spacing: .04em; transition: color .2s; white-space: nowrap; padding: .4rem 0; }
+    .nav-links > li > a:hover, .nav-links > li > a.active { color: var(--green); }
+    .drop-chevron { width: 10px; height: 6px; transition: transform .2s; flex-shrink: 0; }
+    .nav-links > li:hover .drop-chevron { transform: rotate(180deg); }
+    .dropdown { display: none; position: absolute; top: 100%; left: 50%; padding-top: 10px; transform: translateX(-50%); background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .4rem; min-width: 150px; box-shadow: 0 8px 24px rgba(0,0,0,.3); z-index: 400; list-style: none; }
+    .nav-links > li:hover .dropdown { display: block; }
+    .dropdown a { display: block; padding: .55rem 1rem; font-size: .84rem; color: var(--dark); border-radius: 8px; text-decoration: none; transition: background .15s, color .15s; white-space: nowrap; }
+    .dropdown a:hover { background: var(--bg); color: var(--green); }
+    .nav-cta { padding: .52rem 1.4rem; background: var(--grad); color: #fff; border: none; border-radius: 50px; font-family: inherit; font-size: .85rem; font-weight: 600; cursor: pointer; text-decoration: none; white-space: nowrap; transition: opacity .2s; flex-shrink: 0; }
+    .nav-cta:hover { opacity: .88; }
+    .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; background: none; border: none; cursor: pointer; padding: 4px; flex-shrink: 0; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--dark); border-radius: 2px; transition: transform .3s, opacity .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-drawer { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0; z-index: 290; background: var(--bg); flex-direction: column; padding: 1rem var(--px) 2rem; border-top: 1px solid var(--border); overflow-y: auto; }
+    .mobile-drawer.open { display: flex; }
+    .drawer-cat { display: block; padding: 1rem 0; color: var(--dark); font-size: 1rem; font-weight: 700; border-bottom: 1px solid var(--border); letter-spacing: .04em; }
+    .drawer-subs { display: flex; flex-direction: column; padding: .3rem 0 .5rem 1rem; border-bottom: 1px solid var(--border); }
+    .drawer-subs a { display: block; padding: .55rem 0; text-decoration: none; color: var(--mid); font-size: .92rem; }
+    .drawer-cta { margin-top: 1.8rem; padding: 1rem; text-align: center; background: var(--grad); color: #fff; border-radius: 14px; font-size: 1rem; font-weight: 700; text-decoration: none; }
 
-    /* ══ MAIN ══ */
-    main {
-      padding-top: calc(var(--nav-h) + 4rem);
-      padding-bottom: 6rem;
-      padding-left: var(--px);
-      padding-right: var(--px);
-      max-width: 680px;
-      margin: 0 auto;
-    }
+    /* ══ SECTION ══ */
+    .section-tag { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--green); border: 1px solid rgba(139,168,136,.3); border-radius: 50px; padding: .3rem .9rem; margin-bottom: 1rem; }
+    .section-title { font-family: 'Noto Serif KR', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 600; line-height: 1.25; margin-bottom: 1rem; word-break: keep-all; color: var(--dark); }
 
-    /* ══ HEADER ══ */
-    .page-tag {
-      display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .14em;
-      border: 1px solid rgba(139,168,136,.4); color: var(--green);
-      padding: .3rem .9rem; border-radius: 50px; margin-bottom: 1.2rem;
-      text-transform: uppercase;
-    }
-    .page-title {
-      font-family: 'Noto Serif KR', serif;
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
-      font-weight: 600;
-      color: #fff;
-      line-height: 1.35;
-      margin-bottom: 1rem;
-    }
-    .page-notice {
-      display: flex; align-items: center; gap: .75rem;
-      background: rgba(139,168,136,.12);
-      border: 1px solid rgba(139,168,136,.25);
-      border-radius: 12px;
-      padding: 1rem 1.3rem;
-      margin-bottom: 2.5rem;
-      font-size: .88rem;
-      color: rgba(255,255,255,.7);
-    }
-    .page-notice-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--green); flex-shrink: 0;
-    }
+    #for-who { padding: calc(var(--nav-h) + var(--py)) var(--px) var(--py); background: var(--bg); border-bottom: 1px solid var(--border); }
+    #enroll { padding: var(--py) var(--px); background: var(--bg); }
+    .enroll-inner { max-width: 680px; }
 
     /* ══ FORM ══ */
-    .apply-form {
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 24px;
-      padding: 2.5rem;
-    }
-
+    .apply-form { background: #fff; border: 1px solid var(--border); border-radius: 24px; padding: 2.5rem; margin-top: 2rem; }
     .form-group { display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1.4rem; }
-    .form-group:last-of-type { margin-bottom: 0; }
-    .form-group label {
-      font-size: .82rem; font-weight: 600;
-      color: rgba(255,255,255,.6); letter-spacing: .04em;
-    }
-    .form-group input, .form-group select, .form-group textarea {
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.13);
-      border-radius: 12px;
-      padding: .85rem 1.1rem;
-      font-family: inherit; font-size: .95rem;
-      color: #fff; outline: none;
-      transition: border .2s, background .2s;
-      -webkit-appearance: none;
-    }
-    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,.25); }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      border-color: var(--green);
-      background: rgba(139,168,136,.1);
-    }
-    .form-group select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1.1rem center; padding-right: 2.5rem; }
-    .form-group select option { background: var(--dark); color: #fff; }
-
-    /* Radio group for 소매틱 경험 */
+    .form-group label { font-size: .82rem; font-weight: 600; color: var(--mid); letter-spacing: .04em; }
+    .form-group input, .form-group select, .form-group textarea { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: .85rem 1.1rem; font-family: inherit; font-size: .95rem; color: var(--dark); outline: none; transition: border .2s, background .2s; -webkit-appearance: none; }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--light); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--green); background: rgba(139,168,136,.06); }
+    .form-group select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(42,50,69,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1.1rem center; padding-right: 2.5rem; }
+    .form-group select option { background: #fff; color: var(--dark); }
     .radio-group { display: flex; gap: 1rem; margin-top: .2rem; }
-    .radio-label {
-      display: flex; align-items: center; gap: .55rem;
-      cursor: pointer; font-size: .92rem; color: rgba(255,255,255,.7);
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.13);
-      border-radius: 12px; padding: .75rem 1.3rem;
-      flex: 1; justify-content: center;
-      transition: all .2s;
-    }
-    .radio-label:hover { border-color: var(--green); background: rgba(139,168,136,.1); }
+    .radio-label { display: flex; align-items: center; gap: .55rem; cursor: pointer; font-size: .92rem; color: var(--mid); background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: .75rem 1.3rem; flex: 1; justify-content: center; transition: all .2s; }
+    .radio-label:hover { border-color: var(--green); background: rgba(139,168,136,.06); }
     .radio-label input[type="radio"] { display: none; }
-    .radio-label.selected, .radio-label:has(input:checked) {
-      border-color: var(--green);
-      background: rgba(139,168,136,.18);
-      color: #fff;
-    }
-    .radio-dot {
-      width: 16px; height: 16px; border-radius: 50%;
-      border: 2px solid rgba(255,255,255,.3);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; transition: all .2s;
-    }
-    .radio-label:has(input:checked) .radio-dot {
-      border-color: var(--green);
-      background: var(--green);
-    }
-    .radio-label:has(input:checked) .radio-dot::after {
-      content: ''; width: 6px; height: 6px; border-radius: 50%; background: #fff;
-    }
-
-    .form-submit {
-      width: 100%; padding: 1.1rem;
-      background: var(--grad); color: #fff;
-      border: none; border-radius: 50px;
-      font-family: inherit; font-size: 1rem; font-weight: 700;
-      cursor: pointer; transition: opacity .2s, transform .2s;
-      box-shadow: 0 6px 24px rgba(139,168,136,.25);
-      margin-top: 2rem;
-      letter-spacing: .03em;
-    }
+    .radio-label:has(input:checked) { border-color: var(--green); background: rgba(139,168,136,.1); color: var(--dark); }
+    .radio-dot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .2s; }
+    .radio-label:has(input:checked) .radio-dot { border-color: var(--green); background: var(--green); }
+    .radio-label:has(input:checked) .radio-dot::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
+    .form-submit { width: 100%; padding: 1.1rem; background: var(--grad); color: #fff; border: none; border-radius: 50px; font-family: inherit; font-size: 1rem; font-weight: 700; cursor: pointer; transition: opacity .2s, transform .2s; box-shadow: 0 6px 24px rgba(139,168,136,.25); margin-top: 2rem; letter-spacing: .03em; }
     .form-submit:hover { opacity: .88; transform: translateY(-2px); }
     .form-submit:disabled { opacity: .6; transform: none; cursor: default; }
-
-    /* ══ SUCCESS ══ */
-    .success-msg {
-      display: none; text-align: center; padding: 2rem 0;
-    }
+    .success-msg { display: none; text-align: center; padding: 2rem 0; }
     .success-msg .check { font-size: 3rem; margin-bottom: 1rem; }
-    .success-msg h3 { font-family: 'Noto Serif KR', serif; font-size: 1.3rem; color: #fff; margin-bottom: .5rem; }
-    .success-msg p { font-size: .9rem; color: rgba(255,255,255,.55); }
+    .success-msg h3 { font-family: 'Noto Serif KR', serif; font-size: 1.3rem; color: var(--dark); margin-bottom: .5rem; }
+    .success-msg p { font-size: .9rem; color: var(--mid); }
 
-    /* ══ RESPONSIVE ══ */
-    @media (max-width: 480px) {
+    /* ══ FOOTER ══ */
+    footer { background: #3D2E2A; color: rgba(255,255,255,.5); padding: 0 var(--px) 2rem; }
+    .footer-bottom { padding-top: 1.5rem; display: flex; flex-direction: column; gap: .5rem; font-size: .78rem; }
+    .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,.1); margin: 0 calc(-1 * var(--px)); }
+
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-links, .nav-cta { display: none; }
+      .section-title { font-size: clamp(1.4rem, 5vw, 1.8rem) !important; }
       .apply-form { padding: 1.8rem 1.4rem; }
       .radio-group { flex-direction: column; gap: .7rem; }
     }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ══ NAV ══ -->
 <nav>
   <a href="index.html" class="nav-logo">
-    <img src="ari-logo-white.png" alt="ARI 아리" style="height:44px;width:auto;object-fit:contain;">
+    <img src="ari-logo-black.png" alt="ARI 아리" style="height:44px;width:auto;object-fit:contain;">
   </a>
-  <a href="index.html" class="back-btn">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M19 12H5M12 5l-7 7 7 7"/>
-    </svg>
-    홈으로 돌아가기
-  </a>
-</nav>
-
-<!-- MAIN -->
-<main>
-  <span class="page-tag">Apply</span>
-  <h1 class="page-title">상담 신청</h1>
-
-  <div class="page-notice">
-    <div class="page-notice-dot"></div>
-    <span>수강 신청은 사전 상담을 통해 진행됩니다.</span>
+  <div style="flex:1;display:flex;justify-content:center;">
+    <ul class="nav-links">
+      <li>
+        <a href="about.html">About <svg class="drop-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg></a>
+        <ul class="dropdown"><li><a href="about-ari.html">About ARI</a></li><li><a href="about.html#peoples">ARI Peoples</a></li></ul>
+      </li>
+      <li>
+        <a href="program.html">Program <svg class="drop-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg></a>
+        <ul class="dropdown"><li><a href="practice.html">ARI practice</a></li><li><a href="flow.html">ARI flow</a></li><li><a href="curriculum.html">Curriculum</a></li></ul>
+      </li>
+      <li>
+        <a href="schedule.html">Schedule <svg class="drop-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg></a>
+        <ul class="dropdown"><li><a href="schedule.html#module1">Module 1</a></li></ul>
+      </li>
+      <li>
+        <a href="apply.html" class="active">Apply <svg class="drop-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg></a>
+        <ul class="dropdown"><li><a href="#for-who">Enroll in ARI</a></li></ul>
+      </li>
+    </ul>
   </div>
+  <a href="#for-who" class="nav-cta">상담 신청</a>
+  <button class="hamburger" id="hamburger" aria-label="메뉴"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-drawer" id="mobileDrawer">
+  <span class="drawer-cat">About</span>
+  <div class="drawer-subs"><a href="about-ari.html">About ARI</a><a href="about.html#peoples">ARI Peoples</a></div>
+  <span class="drawer-cat">Program</span>
+  <div class="drawer-subs"><a href="practice.html">ARI practice</a><a href="flow.html">ARI flow</a><a href="curriculum.html">Curriculum</a></div>
+  <span class="drawer-cat">Schedule</span>
+  <div class="drawer-subs"><a href="schedule.html#module1">Module 1</a></div>
+  <span class="drawer-cat">Apply</span>
+  <div class="drawer-subs"><a href="#for-who">Enroll in ARI</a></div>
+  <a href="#for-who" class="drawer-cta">상담 신청</a>
+</div>
 
+<!-- ══ FOR WHO ══ -->
+<section id="for-who">
+  <div class="reveal">
+    
+    <h2 class="section-title">For Who?</h2>
+  </div>
+  <div class="reveal" style="margin-top:2rem;">
+    <ul style="list-style:none;display:flex;flex-direction:column;">
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:1.05rem;color:var(--mid);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>몸의 소리에 귀 기울이며 나를 더 이해하고 싶은 분</li>
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:1.05rem;color:var(--mid);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>움직임을 통해 자기돌봄, 서로돌봄을 실천하고 싶은 분</li>
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:1.05rem;color:var(--mid);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>감각, 감정, 생각의 변화를 알아차리고 싶은 분</li>
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:1.05rem;color:var(--mid);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>스스로 긴장을 조절하고 회복의 방법을 배우고 싶은 분</li>
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:1.05rem;color:var(--mid);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>나답게 움직이는 법을 찾고 싶은 분</li>
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;font-size:1.05rem;color:var(--mid);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>필라테스, 요가, 무용 강사, 움직임 교육 전문가로서 소매틱스 원리를 배우고 방법론을 확장하고 싶은 분</li>
+    </ul>
+  </div>
+</section>
 
-  <div class="apply-form">
-    <form id="applyForm" action="https://formspree.io/f/mjgjnjbv" method="POST">
-
-      <div class="form-group">
-        <label>이름 *</label>
-        <input type="text" name="이름" placeholder="홍길동" required>
+<!-- ══ ENROLL ══ -->
+<section id="enroll">
+  <div class="enroll-inner">
+    <div class="reveal">
+      
+      <h2 class="section-title">Enroll in ARI</h2>
+    </div>
+    <div class="reveal" style="margin-top:2.5rem;margin-bottom:2rem;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:.8rem;margin-bottom:.2rem;">
+        <span style="font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--light);">수강료 안내</span>
+        <span style="font-size:.78rem;color:var(--light);">정원 16명</span>
       </div>
-
-      <div class="form-group">
-        <label>연락처 *</label>
-        <input type="tel" name="연락처" placeholder="010-0000-0000" required>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--border);">
+        <span style="font-size:.9rem;color:var(--mid);">접수비</span>
+        <span style="font-size:.95rem;color:var(--dark);">100,000원 <span style="font-size:.78rem;color:var(--light);">(환불 불가)</span></span>
       </div>
-
-      <div class="form-group">
-        <label>이메일</label>
-        <input type="email" name="이메일" placeholder="email@example.com">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--border);">
+        <span style="font-size:.9rem;color:var(--mid);">등록금</span>
+        <span style="font-size:.95rem;color:var(--dark);">3,300,000원 <span style="font-size:.78rem;color:var(--light);">(부가세 포함)</span></span>
       </div>
-
-      <div class="form-group">
-        <label>소매틱 경험 유무</label>
-        <div class="radio-group">
-          <label class="radio-label">
-            <input type="radio" name="소매틱_경험" value="있음" id="somatic-yes">
-            <div class="radio-dot"></div>
-            경험 있음
-          </label>
-          <label class="radio-label">
-            <input type="radio" name="소매틱_경험" value="없음">
-            <div class="radio-dot"></div>
-            경험 없음
-          </label>
-          <label class="radio-label">
-            <input type="radio" name="소매틱_경험" value="잘 모름">
-            <div class="radio-dot"></div>
-            잘 모름
-          </label>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--border);">
+        <span style="font-size:.9rem;color:var(--mid);">조기 등록</span>
+        <span style="font-size:.95rem;color:var(--dark);">3,000,000원 <span style="font-size:.78rem;color:var(--green);font-weight:600;">10% 할인</span> <span style="font-size:.78rem;color:var(--light);">(부가세 포함)</span></span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+        <span style="font-size:.9rem;color:var(--mid);">세그별 등록</span>
+        <span style="font-size:.95rem;color:var(--dark);">1,980,000원 <span style="font-size:.78rem;color:var(--light);">(부가세 포함)</span></span>
+      </div>
+    </div>
+    <div class="reveal">
+      <p style="font-size:.9rem;color:var(--mid);margin-bottom:1.5rem;">수강 신청은 사전 상담을 통해 진행됩니다.</p>
+      <div class="apply-form">
+        <form id="applyForm" action="https://formspree.io/f/mjgjnjbv" method="POST">
+          <div class="form-group">
+            <label>이름 *</label>
+            <input type="text" name="이름" placeholder="홍길동" required>
+          </div>
+          <div class="form-group">
+            <label>연락처 *</label>
+            <input type="tel" name="연락처" placeholder="010-0000-0000" required>
+          </div>
+          <div class="form-group">
+            <label>이메일</label>
+            <input type="email" name="이메일" placeholder="email@example.com">
+          </div>
+          <div class="form-group">
+            <label>소매틱 경험 유무</label>
+            <div class="radio-group">
+              <label class="radio-label"><input type="radio" name="소매틱_경험" value="있음" id="somatic-yes"><div class="radio-dot"></div>경험 있음</label>
+              <label class="radio-label"><input type="radio" name="소매틱_경험" value="없음"><div class="radio-dot"></div>경험 없음</label>
+              <label class="radio-label"><input type="radio" name="소매틱_경험" value="잘 모름"><div class="radio-dot"></div>잘 모름</label>
+            </div>
+          </div>
+          <div class="form-group" id="somatic-detail" style="display:none;margin-top:-.4rem;">
+            <label>어떤 경험을 하셨나요?</label>
+            <textarea name="소매틱_경험_상세" placeholder="경험하신 운동법 혹은 소매틱 메소드가 있으시면 자유롭게 적어주세요 (예: 요가, 명상, 필라테스, 알렉산더 테크닉, 펠든크라이스 메소드 등)" style="min-height:100px;"></textarea>
+          </div>
+          <button type="submit" class="form-submit">상담 신청하기</button>
+        </form>
+        <div class="success-msg" id="successMsg">
+          <div class="check">✓</div>
+          <h3>신청서가 접수되었습니다</h3>
+          <p>담당자가 확인 후 상담 일정을 안내드릴게요.<br>감사합니다 🌿</p>
         </div>
       </div>
-
-      <div class="form-group" id="somatic-detail" style="display:none; margin-top:-.4rem;">
-        <label>어떤 경험을 하셨나요?</label>
-        <textarea name="소매틱_경험_상세" placeholder="경험하신 운동법 혹은 소매틱 메소드가 있으시면 자유롭게 적어주세요 (예: 요가, 명상, 필라테스, 알렉산더 테크닉, 펠든크라이스 메소드 등)" style="min-height:100px;"></textarea>
-      </div>
-
-      <button type="submit" class="form-submit">신청서 보내기</button>
-    </form>
-
-    <div class="success-msg" id="successMsg">
-      <div class="check">✓</div>
-      <h3>신청서가 접수되었습니다</h3>
-      <p>담당자가 확인 후 상담 일정을 안내드릴게요.<br>감사합니다 🌿</p>
     </div>
   </div>
-</main>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <hr class="footer-divider">
+  <div class="footer-bottom">
+    <div style="display:flex;flex-wrap:wrap;gap:1.5rem;font-size:.78rem;color:rgba(255,255,255,.35);line-height:1.8;">
+      <span>상호명: Felden · JKA MOVE</span>
+      <span>대표자: 김윤진</span>
+      <span>사업자등록번호: 702-17-01587</span>
+      <span>주소: 서울특별시 강남구 언주로157길 13 3층</span>
+      <span>이메일: <a href="mailto:ari.embodiedselfcare@gmail.com" style="color:rgba(255,255,255,.35);text-decoration:none;">ari.embodiedselfcare@gmail.com</a></span>
+      <span>전화: <a href="tel:01045257366" style="color:rgba(255,255,255,.35);text-decoration:none;">010-4525-7366</a></span>
+    </div>
+    <span style="font-size:.75rem;color:rgba(255,255,255,.2);">© 2026 ARI 아리. All rights reserved.</span>
+  </div>
+</footer>
 
 <script>
-  /* 소매틱 경험 있음 선택 시 서술형 칸 표시 */
   document.querySelectorAll('input[name="소매틱_경험"]').forEach(radio => {
     radio.addEventListener('change', () => {
       const detail = document.getElementById('somatic-detail');
@@ -275,36 +255,25 @@
       detail.style.flexDirection = 'column';
     });
   });
-
-  /* 제출 - Formspree AJAX */
   document.getElementById('applyForm').addEventListener('submit', async e => {
     e.preventDefault();
     const form = e.target;
     const btn = form.querySelector('.form-submit');
-    btn.disabled = true;
-    btn.textContent = '전송 중...';
-
+    btn.disabled = true; btn.textContent = '전송 중...';
     try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      });
-      if (res.ok) {
-        form.style.display = 'none';
-        document.getElementById('successMsg').style.display = 'block';
-      } else {
-        btn.disabled = false;
-        btn.textContent = '신청서 보내기';
-        alert('전송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-      }
-    } catch (err) {
-      btn.disabled = false;
-      btn.textContent = '신청서 보내기';
-      alert('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-    }
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+      if (res.ok) { form.style.display = 'none'; document.getElementById('successMsg').style.display = 'block'; }
+      else { btn.disabled = false; btn.textContent = '상담 신청하기'; alert('전송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'); }
+    } catch { btn.disabled = false; btn.textContent = '상담 신청하기'; alert('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'); }
   });
+  const ham = document.getElementById('hamburger');
+  const drawer = document.getElementById('mobileDrawer');
+  ham.addEventListener('click', () => { ham.classList.toggle('open'); drawer.classList.toggle('open'); });
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); drawer.classList.remove('open'); }));
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 </script>
-
 </body>
 </html>

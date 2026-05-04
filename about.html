@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARI 아리 | About</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green:    #8BA888;
+      --gold:     #C8BE5A;
+      --green-d:  #3D4C6F;
+      --gold-d:   #A8A040;
+      --grad:     linear-gradient(135deg, #3D4C6F 0%, #8BA888 35%, #C8BE5A 75%, #D4CA6A 100%);
+      --grad-r:   linear-gradient(135deg, #D4CA6A 0%, #C8BE5A 25%, #8BA888 65%, #3D4C6F 100%);
+      --dark:     #2A3245;
+      --mid:      #8A8A88;
+      --light:    #B8B5B0;
+      --bg:       #F4F3F0;
+      --white:    #FFFFFF;
+      --border:   #DDDBD6;
+      --nav-h:    68px;
+      --px:       clamp(1.25rem, 6vw, 7rem);
+      --py:       clamp(3.5rem, 8vw, 6.5rem);
+    }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+    body { font-family: 'Noto Sans KR', sans-serif; color: var(--dark); background: var(--bg); line-height: 1.8; overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+
+    /* ══ NAV ══ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 var(--px);
+      background: rgba(244,243,240,.95);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(139,168,136,.15);
+    }
+    .nav-logo { display: flex; align-items: center; gap: .7rem; text-decoration: none; flex-shrink: 0; }
+    .nav-logo img { height: 44px; width: auto; border-radius: 10px; object-fit: contain; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links > li { position: relative; }
+    .nav-links > li > a {
+      display: flex; align-items: center; gap: .25rem;
+      text-decoration: none; color: var(--mid); font-size: .88rem; font-weight: 500;
+      letter-spacing: .04em; transition: color .2s; white-space: nowrap; padding: .4rem 0;
+    }
+    .nav-links > li > a:hover,
+    .nav-links > li > a.active { color: var(--green); }
+    .drop-chevron { width: 10px; height: 6px; transition: transform .2s; flex-shrink: 0; }
+    .nav-links > li:hover .drop-chevron { transform: rotate(180deg); }
+    .dropdown {
+      display: none; position: absolute; top: 100%; left: 50%; padding-top: 10px;
+      transform: translateX(-50%);
+      background: #fff; border: 1px solid var(--border);
+      border-radius: 12px; padding: .4rem;
+      min-width: 150px; box-shadow: 0 8px 24px rgba(0,0,0,.3);
+      z-index: 400; list-style: none;
+    }
+    .nav-links > li:hover .dropdown { display: block; }
+    .dropdown a {
+      display: block; padding: .55rem 1rem; font-size: .84rem;
+      color: var(--dark); border-radius: 8px; text-decoration: none;
+      transition: background .15s, color .15s; white-space: nowrap;
+    }
+    .dropdown a:hover { background: var(--bg); color: var(--green); }
+    .nav-cta {
+      padding: .52rem 1.4rem; background: var(--grad); color: #fff;
+      border: none; border-radius: 50px; font-family: inherit; font-size: .85rem; font-weight: 600;
+      cursor: pointer; text-decoration: none; white-space: nowrap;
+      transition: opacity .2s, transform .2s; box-shadow: 0 4px 16px rgba(139,168,136,.3); flex-shrink: 0;
+    }
+    .nav-cta:hover { opacity: .88; transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; background: none; border: none; cursor: pointer; padding: 4px; flex-shrink: 0; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--dark); border-radius: 2px; transition: transform .3s, opacity .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-drawer {
+      display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0;
+      z-index: 290; background: var(--bg); flex-direction: column;
+      padding: 1rem var(--px) 2rem; border-top: 1px solid var(--border); overflow-y: auto;
+    }
+    .mobile-drawer.open { display: flex; }
+    .drawer-cat {
+      display: block; padding: 1rem 0; text-decoration: none;
+      color: var(--dark); font-size: 1rem; font-weight: 700;
+      border-bottom: 1px solid var(--border); letter-spacing: .04em;
+    }
+    .drawer-subs { display: flex; flex-direction: column; padding: .3rem 0 .5rem 1rem; border-bottom: 1px solid var(--border); }
+    .drawer-subs a { display: block; padding: .55rem 0; text-decoration: none; color: var(--mid); font-size: .92rem; }
+    .drawer-cta { margin-top: 1.8rem; padding: 1rem; text-align: center; background: var(--grad); color: #fff; border-radius: 14px; font-size: 1rem; font-weight: 700; text-decoration: none; }
+
+    /* ══ SECTION COMMON ══ */
+    .section-tag { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--green); border: 1px solid rgba(139,168,136,.3); border-radius: 50px; padding: .3rem .9rem; margin-bottom: 1rem; }
+    .section-title { font-family: 'Noto Serif KR', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 600; line-height: 1.25; margin-bottom: 1rem; word-break: keep-all; }
+
+    /* ══ PEOPLES ══ */
+    #peoples {
+      padding: calc(var(--nav-h) + var(--py)) var(--px) var(--py);
+      background: var(--bg);
+    }
+    .peoples-header { margin-bottom: 3rem; }
+    /* Founders */
+    .founders-wrap {
+      margin-bottom: 3rem;
+    }
+    .founders-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; }
+    .founder-card { background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 2.4rem; }
+    .founder-name { font-family: 'Noto Serif KR', serif; font-size: 1.5rem; font-weight: 600; color: var(--dark); margin-bottom: .4rem; }
+    .founder-role { font-size: .8rem; font-weight: 600; letter-spacing: .08em; color: var(--green); margin-bottom: 1.4rem; line-height: 1.6; }
+    .founder-divider { width: 36px; height: 2px; background: var(--grad); margin-bottom: 1.4rem; }
+    .founder-bio { font-size: 1rem; line-height: 1.9; color: var(--mid); word-break: keep-all; }
+    /* Researchers */
+    .researchers-label { font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--green); margin-bottom: 1.5rem; }
+    .researchers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .researcher-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 1.8rem 1.5rem; }
+    .researcher-name { font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 1rem; }
+    .researcher-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .researcher-list li { font-size: .88rem; color: rgba(255,255,255,.65); display: flex; gap: .5rem; align-items: flex-start; }
+    .researcher-list li span { color: var(--green); flex-shrink: 0; }
+
+    /* ══ FOOTER ══ */
+    footer { background: #3D2E2A; color: rgba(255,255,255,.5); padding: 0 var(--px) 2rem; }
+    .footer-bottom { padding-top: 1.5rem; display: flex; flex-direction: column; gap: .5rem; font-size: .78rem; }
+    .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,.1); margin: 0 calc(-1 * var(--px)); }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-links, .nav-cta { display: none; }
+      .researchers-grid { grid-template-columns: 1fr !important; }
+      .section-title { font-size: clamp(1.4rem, 5vw, 1.8rem) !important; }
+    }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">
+    <img src="ari-logo-black.png" alt="ARI 아리" style="height:44px;width:auto;object-fit:contain;">
+  </a>
+  <div style="flex:1;display:flex;justify-content:center;">
+    <ul class="nav-links">
+      <li>
+        <a href="about.html" class="active">About
+          <svg class="drop-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg>
+        </a>
+        <ul class="dropdown">
+          <li><a href="about-ari.html">About ARI</a></li>
+          <li><a href="about.html#peoples">ARI Peoples</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="program.html">Program
+          <svg class="drop-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg>
+        </a>
+        <ul class="dropdown">
+          <li><a href="practice.html">ARI practice</a></li>
+          <li><a href="flow.html">ARI flow</a></li>
+          <li><a href="curriculum.html">Curriculum</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="schedule.html">Schedule
+          <svg class="drop-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg>
+        </a>
+        <ul class="dropdown">
+          <li><a href="schedule.html#module1">Module 1</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="apply.html">Apply
+          <svg class="drop-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg>
+        </a>
+        <ul class="dropdown">
+          <li><a href="apply.html#for-who">Enroll in ARI</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <a href="apply.html" class="nav-cta">상담 신청</a>
+  <button class="hamburger" id="hamburger" aria-label="메뉴"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-drawer" id="mobileDrawer">
+  <span class="drawer-cat">About</span>
+  <div class="drawer-subs">
+    <a href="about-ari.html">About ARI</a>
+    <a href="about.html#peoples">ARI Peoples</a>
+  </div>
+  <span class="drawer-cat">Program</span>
+  <div class="drawer-subs">
+    <a href="practice.html">ARI practice</a>
+    <a href="flow.html">ARI flow</a>
+    <a href="curriculum.html">Curriculum</a>
+  </div>
+  <span class="drawer-cat">Schedule</span>
+  <div class="drawer-subs"><a href="schedule.html#module1">Module 1</a></div>
+  <span class="drawer-cat">Apply</span>
+  <div class="drawer-subs"><a href="apply.html#for-who">Enroll in ARI</a></div>
+  <a href="apply.html" class="drawer-cta">상담 신청</a>
+</div>
+
+<!-- ══ ARI PEOPLES ══ -->
+<section id="peoples">
+  <div class="peoples-header reveal">
+    
+    <h2 class="section-title" style="color:var(--dark);">ARI Founder</h2>
+  </div>
+
+  <div class="founders-wrap reveal">
+    <div class="founders-grid">
+      <div class="founder-card">
+        <div class="founder-name">김윤진</div>
+        <div class="founder-role">펠든JKA 무브 대표</div>
+        <div class="founder-divider"></div>
+        <p class="founder-bio">
+          움직이는 모든 것에 매료되는 사람입니다. 한국춤을 수련하며 안무와 창작, 예술교육 분야에서 30년 넘게 몸으로 배우고 탐구해왔습니다.<br><br>
+          춤추는 기쁨과 함께 부상과 만성 통증을 겪었고 중년기에 들이닥친 번아웃을 경험하며 몸의 한계와 마주했습니다. 그 과정에서 펠든크라이스 메소드를 만나 이전과는 전혀 다른 방식으로 몸을 인식하고 조절하는 경험을 하게 되었습니다.<br><br>
+          이 경험을 계기로 국제 공인 펠든크라이스 전문가가 되었고 이어 JKA(Jeremy Krauss Approach) 전문가 과정을 이수하며 감각과 움직임을 기반으로 한 학습 체계를 깊이 탐구해왔습니다.<br><br>
+          현재 압구정동에서 &lt;펠든 JKA 무브&gt;를 운영하며 움직임을 통해 자신을 이해하고 돌보는 과정을 교육하고 있습니다. 또한 &lt;한국 JKA 운동발달 전문가 협회&gt; 회장으로 활동하며 교육과 연구를 이어가고 있습니다.<br><br>
+          이러한 경험을 바탕으로 감각·인지·움직임을 통합하는 자기돌봄 움직임 교육 체계 ARI를 개발했습니다.<br><br>
+          여전히 배우는 사람으로서, 몸을 통해 나를 이해하는 과정이 삶을 바꿀 수 있는 힘이 된다고 생각합니다.
+        </p>
+        <div style="margin-top:1.6rem;border-top:1px solid var(--border);padding-top:1.4rem;">
+          <p style="font-size:.78rem;font-weight:600;letter-spacing:.08em;color:var(--green);margin-bottom:.9rem;">경력</p>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.55rem;">
+            <li style="font-size:.92rem;color:var(--mid);display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>국제공인 펠든크라이스 메소드(Feldenkrais Method®) 전문가</li>
+            <li style="font-size:.92rem;color:var(--mid);display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>제레미크라우스 접근법(Jeremy Krauss Approach) 전문가</li>
+            <li style="font-size:.92rem;color:var(--mid);display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>이화여자대학교 대학원 운동심리학 박사</li>
+            <li style="font-size:.92rem;color:var(--mid);display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>국민대학교 공연예술학부 무용전공 교수 역임</li>
+            <li style="font-size:.92rem;color:var(--mid);display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>서울문화재단 서울댄스프로젝스 기획감독 역임</li>
+            <li style="font-size:.92rem;color:var(--mid);display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">·</span>한국문화예술교육진흥원 이사 역임</li>
+          </ul>
+        </div>
+      </div>
+      <div class="founder-card">
+        <div class="founder-name">임소연</div>
+        <div class="founder-role">공동창립자 · 국제 공인 펠든크라이스 전문가 · JKA 교사</div>
+        <div class="founder-divider"></div>
+        <p class="founder-bio">
+          평생 춤을 추며 살아갈 것이라 믿었습니다. 하지만 어느 날, 류마티스 관절염으로 더 이상 춤을 이어갈 수 없게 되었고, 내 몸을 위해 내가 해줄 수 있는 것이 없다는 사실에 깊은 절망을 느끼던 순간 펠든크라이스를 만나게 되었습니다.<br><br>
+          그 배움은 나이가 들어서도 더 자유롭게 움직일 수 있다는 희망과 가능성을 다시 품게 해주었습니다. 이후 유방암 진단을 받고 고된 치료의 시간도 펠든크라이스와 함께 견뎌냈습니다. 두려움보다는 담담히 마주하는 힘을 펠든을 통해 배웠습니다.<br><br>
+          어떤 순간에도 움직일 수 있다면 스스로 돌보는 삶을 살 수 있다고 믿습니다. 현재는 누구나 자신의 몸의 주체가 되어 내 안의 감각과 가능성을 깨우는 움직임을 안내하고 있습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <hr class="footer-divider">
+  <div class="footer-bottom">
+    <div style="display:flex;flex-wrap:wrap;gap:1.5rem;font-size:.78rem;color:rgba(255,255,255,.35);line-height:1.8;">
+      <span>상호명: Felden · JKA MOVE</span>
+      <span>대표자: 김윤진</span>
+      <span>사업자등록번호: 702-17-01587</span>
+      <span>주소: 서울특별시 강남구 언주로157길 13 3층</span>
+      <span>이메일: <a href="mailto:ari.embodiedselfcare@gmail.com" style="color:rgba(255,255,255,.35);text-decoration:none;">ari.embodiedselfcare@gmail.com</a></span>
+      <span>전화: <a href="tel:01045257366" style="color:rgba(255,255,255,.35);text-decoration:none;">010-4525-7366</a></span>
+    </div>
+    <span style="font-size:.75rem;color:rgba(255,255,255,.2);">© 2026 ARI 아리. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+  const ham = document.getElementById('hamburger');
+  const drawer = document.getElementById('mobileDrawer');
+  ham.addEventListener('click', () => { ham.classList.toggle('open'); drawer.classList.toggle('open'); });
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); drawer.classList.remove('open'); }));
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>
