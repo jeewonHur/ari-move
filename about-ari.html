@@ -90,7 +90,8 @@
     .photo-grid img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 14px; }
     @media (max-width: 900px) {
       .about-layout { grid-template-columns: 1fr; }
-      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-grid { grid-template-columns: 1fr 1fr; max-width: 480px; }
+      .photo-grid img { aspect-ratio: 4/3; }
     }
     @media (max-width: 600px) { .content-wrap { padding: 2rem 1.5rem; } }
 
