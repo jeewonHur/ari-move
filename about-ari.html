@@ -87,11 +87,12 @@
     .about-layout { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 3rem; align-items: start; }
     .content-wrap { background: #fff; border-radius: 20px; padding: 3rem 3.5rem; border: 1px solid var(--border); }
     .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
-    .photo-grid img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 14px; }
+    .photo-grid-item { position: relative; overflow: hidden; border-radius: 14px; aspect-ratio: 3/4; }
+    .photo-grid-item img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
     @media (max-width: 900px) {
       .about-layout { grid-template-columns: 1fr; }
       .photo-grid { grid-template-columns: 1fr 1fr; max-width: 480px; }
-      .photo-grid img { aspect-ratio: 4/3; }
+      .photo-grid-item { aspect-ratio: 4/3; }
     }
     @media (max-width: 600px) { .content-wrap { padding: 2rem 1.5rem; } }
 
@@ -178,10 +179,10 @@
       </div>
     </div>
     <div class="photo-grid reveal">
-      <img src="1.svg" alt="ARI 수련 1">
-      <img src="3.svg" alt="ARI 수련 2">
-      <img src="9.svg" alt="ARI 수련 3">
-      <img src="10.svg" alt="ARI 수련 4">
+      <div class="photo-grid-item"><img src="1.svg" alt="ARI 수련 1"></div>
+      <div class="photo-grid-item"><img src="3.svg" alt="ARI 수련 2"></div>
+      <div class="photo-grid-item"><img src="9.svg" alt="ARI 수련 3"></div>
+      <div class="photo-grid-item"><img src="10.svg" alt="ARI 수련 4"></div>
     </div>
   </div>
 </section>
