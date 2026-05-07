@@ -84,7 +84,14 @@
       background: var(--bg);
       min-height: 100vh;
     }
-    .content-wrap { max-width: 760px; margin: 0; background: #fff; border-radius: 20px; padding: 3rem 3.5rem; border: 1px solid var(--border); }
+    .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .content-wrap { background: #fff; border-radius: 20px; padding: 3rem 3.5rem; border: 1px solid var(--border); }
+    .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .photo-grid img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 14px; }
+    @media (max-width: 900px) {
+      .about-layout { grid-template-columns: 1fr; }
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+    }
     @media (max-width: 600px) { .content-wrap { padding: 2rem 1.5rem; } }
 
     /* ══ FOOTER ══ */
@@ -159,8 +166,8 @@
   <div class="reveal" style="margin-bottom:2rem;">
     <h2 style="font-family:'Noto Serif KR',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:600;line-height:1.25;color:var(--dark);word-break:keep-all;">ARI 전문가 과정 소개</h2>
   </div>
-  <div class="content-wrap">
-    <div class="reveal">
+  <div class="about-layout">
+    <div class="content-wrap reveal">
       <div style="display:flex;flex-direction:column;gap:1.5rem;">
         <p style="font-size:1.05rem;color:var(--mid);line-height:1.95;word-break:keep-all;">ARI는 펠든크라이스 메소드(Feldenkrais Method®)와 제레미크라우스 접근법(Jeremy Krauss Approach)을 바탕으로 설계된 감각인지 기반 움직임 교육입니다.</p>
         <p style="font-size:1.05rem;color:var(--mid);line-height:1.95;word-break:keep-all;">감각을 인지하고 근골격계의 협응과 운동조절 능력을 학습하며 신경계의 자기 조절을 돕는 신경생리학적 학습과정입니다.</p>
@@ -168,6 +175,12 @@
         <p style="font-size:1.05rem;color:var(--mid);line-height:1.95;word-break:keep-all;">주의(attention), 경청(listening), 관찰(observation), 억제(inhibition),<br>비판단(non-judgement), 방향(direction), 구별(differentiation) 등 소매틱스의 핵심 원리를 자기 경험을 통해 체화하며 자기 이해의 가능성을 확장합니다.</p>
         <p style="font-size:1.05rem;color:var(--mid);line-height:1.95;word-break:keep-all;">이는 실제적인 움직임 학습 과정인 ARI practice와 ARI flow로 구체화됩니다.</p>
       </div>
+    </div>
+    <div class="photo-grid reveal">
+      <img src="1.svg" alt="ARI 수련 1">
+      <img src="3.svg" alt="ARI 수련 2">
+      <img src="9.svg" alt="ARI 수련 3">
+      <img src="10.svg" alt="ARI 수련 4">
     </div>
   </div>
 </section>
