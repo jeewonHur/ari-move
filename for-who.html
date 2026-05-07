@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ARI 아리 | About ARI</title>
+  <title>ARI 아리 | For Who?</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -13,12 +13,10 @@
       --green-d:  #3D4C6F;
       --gold-d:   #A8A040;
       --grad:     linear-gradient(135deg, #3D4C6F 0%, #8BA888 35%, #C8BE5A 75%, #D4CA6A 100%);
-      --grad-r:   linear-gradient(135deg, #D4CA6A 0%, #C8BE5A 25%, #8BA888 65%, #3D4C6F 100%);
       --dark:     #2A3245;
       --mid:      #8A8A88;
       --light:    #B8B5B0;
       --bg:       #F4F3F0;
-      --white:    #FFFFFF;
       --border:   #DDDBD6;
       --nav-h:    68px;
       --px:       clamp(1.25rem, 6vw, 7rem);
@@ -29,40 +27,21 @@
     img { max-width: 100%; display: block; }
 
     /* ══ NAV ══ */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
-      height: var(--nav-h);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 var(--px);
-      background: rgba(244,243,240,.95);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(139,168,136,.15);
-    }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 300; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; padding: 0 var(--px); background: rgba(244,243,240,.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(139,168,136,.15); }
     .nav-logo { display: flex; align-items: center; gap: .7rem; text-decoration: none; flex-shrink: 0; }
     .nav-logo img { height: 44px; width: auto; border-radius: 10px; object-fit: contain; }
     .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
     .nav-links > li { position: relative; }
-    .nav-links > li > a {
-      display: flex; align-items: center; gap: .25rem;
-      text-decoration: none; color: var(--mid); font-size: .88rem; font-weight: 500;
-      letter-spacing: .04em; transition: color .2s; white-space: nowrap; padding: .4rem 0;
-    }
+    .nav-links > li > a { display: flex; align-items: center; gap: .25rem; text-decoration: none; color: var(--mid); font-size: .88rem; font-weight: 500; letter-spacing: .04em; transition: color .2s; white-space: nowrap; padding: .4rem 0; }
     .nav-links > li > a:hover, .nav-links > li > a.active { color: var(--green); }
     .drop-chevron { width: 10px; height: 6px; transition: transform .2s; flex-shrink: 0; }
     .nav-links > li:hover .drop-chevron { transform: rotate(180deg); }
-    .dropdown {
-      display: none; position: absolute; top: 100%; left: 50%; padding-top: 10px;
-      transform: translateX(-50%);
-      background: #fff; border: 1px solid var(--border);
-      border-radius: 12px; padding: .4rem;
-      min-width: 150px; box-shadow: 0 8px 24px rgba(0,0,0,.3);
-      z-index: 400; list-style: none;
-    }
+    .dropdown { display: none; position: absolute; top: 100%; left: 50%; padding-top: 10px; transform: translateX(-50%); background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: .4rem; min-width: 150px; box-shadow: 0 8px 24px rgba(0,0,0,.3); z-index: 400; list-style: none; }
     .nav-links > li:hover .dropdown { display: block; }
     .dropdown a { display: block; padding: .55rem 1rem; font-size: .84rem; color: var(--dark); border-radius: 8px; text-decoration: none; transition: background .15s, color .15s; white-space: nowrap; }
     .dropdown a:hover { background: var(--bg); color: var(--green); }
-    .nav-cta { padding: .52rem 1.4rem; background: var(--grad); color: #fff; border: none; border-radius: 50px; font-family: inherit; font-size: .85rem; font-weight: 600; cursor: pointer; text-decoration: none; white-space: nowrap; transition: opacity .2s, transform .2s; flex-shrink: 0; }
-    .nav-cta:hover { opacity: .88; transform: translateY(-1px); }
+    .nav-cta { padding: .52rem 1.4rem; background: var(--grad); color: #fff; border: none; border-radius: 50px; font-family: inherit; font-size: .85rem; font-weight: 600; cursor: pointer; text-decoration: none; white-space: nowrap; transition: opacity .2s; flex-shrink: 0; }
+    .nav-cta:hover { opacity: .88; }
     .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; background: none; border: none; cursor: pointer; padding: 4px; flex-shrink: 0; }
     .hamburger span { display: block; width: 22px; height: 2px; background: var(--dark); border-radius: 2px; transition: transform .3s, opacity .3s; }
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -75,74 +54,50 @@
     .drawer-subs a { display: block; padding: .55rem 0; text-decoration: none; color: var(--mid); font-size: .92rem; }
     .drawer-cta { margin-top: 1.8rem; padding: 1rem; text-align: center; background: var(--grad); color: #fff; border-radius: 14px; font-size: 1rem; font-weight: 700; text-decoration: none; }
 
-    /* ══ SECTION TAG ══ */
-    .section-tag { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--green); border: 1px solid rgba(139,168,136,.3); border-radius: 50px; padding: .3rem .9rem; margin-bottom: 1rem; }
-
     /* ══ CONTENT ══ */
-    #about-ari {
-      padding: calc(var(--nav-h) + var(--py)) var(--px) var(--py);
-      background: var(--bg);
-      min-height: 100vh;
-    }
-    .about-layout { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 3rem; align-items: start; }
-    .content-wrap { background: #fff; border-radius: 20px; padding: 3rem 3.5rem; border: 1px solid var(--border); }
-    .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
-    .photo-grid img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 14px; }
-    @media (max-width: 900px) {
-      .about-layout { grid-template-columns: 1fr; }
-      .photo-grid { grid-template-columns: 1fr 1fr; max-width: 480px; }
-      .photo-grid img { aspect-ratio: 4/3; }
-    }
-    @media (max-width: 600px) { .content-wrap { padding: 2rem 1.5rem; } }
+    #for-who { padding: calc(var(--nav-h) + var(--py)) var(--px) var(--py); background: var(--bg); min-height: 100vh; }
+    .section-title { font-family: 'Noto Serif KR', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 600; line-height: 1.25; margin-bottom: 2rem; word-break: keep-all; color: var(--dark); }
 
     /* ══ FOOTER ══ */
     footer { background: #3D2E2A; color: rgba(255,255,255,.5); padding: 0 var(--px) 2rem; }
     .footer-bottom { padding-top: 1.5rem; display: flex; flex-direction: column; gap: .5rem; font-size: .78rem; }
     .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,.1); margin: 0 calc(-1 * var(--px)); }
 
-    /* ══ RESPONSIVE ══ */
     @media (max-width: 768px) {
       .hamburger { display: flex; }
       .nav-links, .nav-cta { display: none; }
     }
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
-      @media (max-width: 768px) {
+    @media (max-width: 768px) {
       h1, h2, h3 { font-size: 26px !important; }
-      p, li, span:not(.section-tag):not(.nav-cta) { font-size: 15px !important; }
+      p, li, span:not(.nav-cta) { font-size: 15px !important; }
     }
   </style>
 </head>
 <body>
 
 <!-- ══ NAV ══ -->
-<nav id="mainNav">
+<nav>
   <a href="index.html" class="nav-logo">
     <img src="ari-logo-black.png" alt="ARI 아리" style="height:44px;width:auto;object-fit:contain;">
   </a>
   <div style="flex:1;display:flex;justify-content:center;">
     <ul class="nav-links">
       <li>
-        <a href="about-ari.html" class="active">About <svg class="drop-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg></a>
-        <ul class="dropdown">
-          <li><a href="about-ari.html">About ARI</a></li>
-          <li><a href="about.html#peoples">ARI Peoples</a></li>
-        </ul>
+        <a href="about-ari.html">About <svg class="drop-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg></a>
+        <ul class="dropdown"><li><a href="about-ari.html">About ARI</a></li><li><a href="about.html#peoples">ARI Peoples</a></li></ul>
       </li>
       <li>
         <a href="practice.html">Program <svg class="drop-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg></a>
-        <ul class="dropdown">
-          <li><a href="practice.html">ARI practice</a></li>
-          <li><a href="flow.html">ARI flow</a></li>
-          <li><a href="curriculum.html">Curriculum</a></li>
-        </ul>
+        <ul class="dropdown"><li><a href="practice.html">ARI practice</a></li><li><a href="flow.html">ARI flow</a></li><li><a href="curriculum.html">Curriculum</a></li></ul>
       </li>
       <li>
         <a href="schedule.html">Schedule <svg class="drop-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg></a>
         <ul class="dropdown"><li><a href="schedule.html#module1">Module 1</a></li></ul>
       </li>
       <li>
-        <a href="apply.html">Apply <svg class="drop-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg></a>
+        <a href="apply.html" class="active">Apply <svg class="drop-chevron" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg></a>
         <ul class="dropdown"><li><a href="for-who.html">For Who?</a></li><li><a href="apply.html">Enroll in ARI</a></li></ul>
       </li>
     </ul>
@@ -162,27 +117,20 @@
   <a href="apply.html" class="drawer-cta">상담 신청</a>
 </div>
 
-<!-- ══ ABOUT ARI ══ -->
-<section id="about-ari">
+<!-- ══ FOR WHO ══ -->
+<section id="for-who">
   <div class="reveal" style="margin-bottom:2rem;">
-    <h2 style="font-family:'Noto Serif KR',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:600;line-height:1.25;color:var(--dark);word-break:keep-all;">ARI 전문가 과정 소개</h2>
+    <h2 class="section-title">For Who?</h2>
   </div>
-  <div class="about-layout">
-    <div class="content-wrap reveal">
-      <div style="display:flex;flex-direction:column;gap:1.5rem;">
-        <p style="font-size:1.05rem;color:var(--mid);line-height:1.95;word-break:keep-all;">ARI는 펠든크라이스 메소드(Feldenkrais Method®)와 제레미크라우스 접근법(Jeremy Krauss Approach)을 바탕으로 설계된 감각인지 기반 움직임 교육입니다.</p>
-        <p style="font-size:1.05rem;color:var(--mid);line-height:1.95;word-break:keep-all;">감각을 인지하고 근골격계의 협응과 운동조절 능력을 학습하며 신경계의 자기 조절을 돕는 신경생리학적 학습과정입니다.</p>
-        <p style="font-size:1.05rem;color:var(--mid);line-height:1.95;word-break:keep-all;">또한 몸을 느끼고 표현하는 예술적 경험을 통해 회복과 자기치유의 장을 제공합니다.</p>
-        <p style="font-size:1.05rem;color:var(--mid);line-height:1.95;word-break:keep-all;">주의(attention), 경청(listening), 관찰(observation), 억제(inhibition),<br>비판단(non-judgement), 방향(direction), 구별(differentiation) 등 소매틱스의 핵심 원리를 자기 경험을 통해 체화하며 자기 이해의 가능성을 확장합니다.</p>
-        <p style="font-size:1.05rem;color:var(--mid);line-height:1.95;word-break:keep-all;">이는 실제적인 움직임 학습 과정인 ARI practice와 ARI flow로 구체화됩니다.</p>
-      </div>
-    </div>
-    <div class="photo-grid reveal">
-      <img src="1.svg" alt="ARI 수련 1">
-      <img src="3.svg" alt="ARI 수련 2">
-      <img src="9.svg" alt="ARI 수련 3">
-      <img src="10.svg" alt="ARI 수련 4">
-    </div>
+  <div class="reveal" style="background:#fff;border-radius:20px;padding:3rem 3.5rem;border:1px solid var(--border);max-width:760px;">
+    <ul style="list-style:none;display:flex;flex-direction:column;">
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:1.05rem;color:var(--mid);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>몸의 소리에 귀 기울이며 나를 더 이해하고 싶은 분</li>
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:1.05rem;color:var(--mid);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>움직임을 통해 자기돌봄, 서로돌봄을 실천하고 싶은 분</li>
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:1.05rem;color:var(--mid);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>감각, 감정, 생각의 변화를 알아차리고 싶은 분</li>
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:1.05rem;color:var(--mid);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>스스로 긴장을 조절하고 회복의 방법을 배우고 싶은 분</li>
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:1.05rem;color:var(--mid);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>나답게 움직이는 법을 찾고 싶은 분</li>
+      <li style="display:flex;align-items:baseline;gap:.75rem;padding:1rem 0;font-size:1.05rem;color:var(--mid);line-height:1.7;"><span style="color:var(--green);font-size:.8rem;flex-shrink:0;">✦</span>필라테스, 요가, 무용 강사, 움직임 교육 전문가로서 소매틱스 원리를 배우고 방법론을 확장하고 싶은 분</li>
+    </ul>
   </div>
 </section>
 
