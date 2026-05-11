@@ -98,6 +98,9 @@
       .apply-form { padding: 1.8rem 1.4rem; }
       .radio-group { flex-direction: column; gap: .7rem; }
       .enroll-grid { grid-template-columns: 1fr !important; }
+      .price-row { flex-direction: column !important; gap: .2rem; }
+      .price-label { white-space: normal !important; word-break: keep-all; }
+      .price-value { text-align: left !important; }
     }
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
@@ -158,25 +161,25 @@
     <div class="reveal enroll-grid" style="margin-top:2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;">
       <!-- 수강료 안내 -->
       <div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:.8rem;margin-bottom:.2rem;">
-          <span style="font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--light);">수강료 안내</span>
-          <span style="font-size:.78rem;color:var(--light);">정원 16명</span>
+        <div class="price-row" style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:.8rem;margin-bottom:.2rem;">
+          <span class="price-label" style="font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--light);">수강료 안내</span>
+          <span class="price-value" style="font-size:.78rem;color:var(--light);">정원 16명</span>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--border);">
-          <span style="font-size:.9rem;color:var(--mid);">접수비</span>
-          <span style="font-size:.95rem;color:var(--dark);">100,000원 <span style="font-size:.78rem;color:var(--light);">(환불 불가)</span></span>
+        <div class="price-row" style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--border);">
+          <span class="price-label" style="font-size:.9rem;color:var(--mid);">접수비</span>
+          <span class="price-value" style="font-size:.95rem;color:var(--dark);">100,000원 <span style="font-size:.78rem;color:var(--light);">(환불 불가)</span></span>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--border);">
-          <span style="font-size:.9rem;color:var(--mid);">등록금</span>
-          <span style="font-size:.95rem;color:var(--dark);">3,300,000원 <span style="font-size:.78rem;color:var(--light);">(부가세 포함)</span></span>
+        <div class="price-row" style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--border);">
+          <span class="price-label" style="font-size:.9rem;color:var(--mid);">등록금</span>
+          <span class="price-value" style="font-size:.95rem;color:var(--dark);">3,300,000원 <span style="font-size:.78rem;color:var(--light);">(부가세 포함)</span></span>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--border);">
-          <span style="font-size:.9rem;color:var(--mid);">조기 등록_6월 30일까지</span>
-          <span style="font-size:.95rem;color:var(--dark);">3,000,000원 <span style="font-size:.78rem;color:var(--green);font-weight:600;">10% 할인</span> <span style="font-size:.78rem;color:var(--light);">(부가세 포함)</span></span>
+        <div class="price-row" style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--border);">
+          <span class="price-label" style="font-size:.9rem;color:var(--mid);">조기 등록_6월 30일까지</span>
+          <span class="price-value" style="font-size:.95rem;color:var(--dark);">3,000,000원 <span style="font-size:.78rem;color:var(--green);font-weight:600;">10% 할인</span> <span style="font-size:.78rem;color:var(--light);">(부가세 포함)</span></span>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-          <span style="font-size:.9rem;color:var(--mid);">세그별 등록</span>
-          <span style="font-size:.95rem;color:var(--dark);">1,980,000원 <span style="font-size:.78rem;color:var(--light);">(부가세 포함)</span></span>
+        <div class="price-row" style="display:flex;justify-content:space-between;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+          <span class="price-label" style="font-size:.9rem;color:var(--mid);">세그별 등록</span>
+          <span class="price-value" style="font-size:.95rem;color:var(--dark);">1,980,000원 <span style="font-size:.78rem;color:var(--light);">(부가세 포함)</span></span>
         </div>
       </div>
       <!-- 수강 신청 폼 -->
