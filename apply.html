@@ -58,7 +58,7 @@
     .section-title { font-family: 'Noto Serif KR', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 600; line-height: 1.25; margin-bottom: 1rem; word-break: keep-all; color: var(--dark); }
 
     #for-who { padding: calc(var(--nav-h) + var(--py)) var(--px) var(--py); background: var(--bg); border-bottom: 1px solid var(--border); }
-    #enroll { padding: var(--py) var(--px); background: var(--bg); }
+    #enroll { padding: calc(var(--nav-h) + var(--py)) var(--px) var(--py); background: var(--bg); }
     .enroll-inner { max-width: 100%; }
 
     /* ══ FORM ══ */
@@ -101,7 +101,7 @@
       .price-row { flex-direction: column !important; gap: .2rem; }
       .price-label { white-space: normal !important; word-break: keep-all; }
       .price-value { text-align: left !important; }
-      #enroll { padding: var(--py) 0.6rem 0.6rem 0.6rem; }
+      #enroll { padding: calc(var(--nav-h) + var(--py)) 1.4rem 1.4rem 1.4rem; }
     }
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
