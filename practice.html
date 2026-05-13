@@ -101,6 +101,8 @@
     strong { font-size: inherit !important; color: inherit; font-weight: 700; }
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
+    .mobile-break { display: none; }
+    @media (max-width: 768px) { .mobile-break { display: block; } }
       @media (max-width: 768px) {
       h1, h2, h3 { font-size: 26px !important; }
       p, li, span:not(.section-tag):not(.nav-cta) { font-size: 13px !important; }
@@ -164,7 +166,7 @@
   </div>
   <div class="reveal">
     <div class="prog-box">
-      <p style="font-size:1.05rem;color:var(--mid);line-height:1.9;margin-bottom:.6rem;">교사의 <strong>언어적 안내</strong>에 따라 움직임과 감각, 주의 조절을 경험하고 이를 통해 <strong>자기사용 방식을 탐구</strong> 하는 수업입니다.</p>
+      <p style="font-size:1.05rem;color:var(--mid);line-height:1.9;margin-bottom:.6rem;">교사의 <strong>언어적 안내</strong>에 따라 움직임과 감각,<br class="mobile-break">주의 조절을 경험하고 이를 통해 <strong>자기사용 방식을 탐구</strong> 하는 수업입니다.</p>
       <p style="font-size:1.05rem;color:var(--mid);line-height:1.9;margin-bottom:1.4rem;">모듈 1은 호흡편• 척추편• 골반편• 어깨편으로 구성되어 있습니다.</p>
       <ul style="list-style:none;display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.6rem;">
         <li style="font-size:1rem;color:var(--dark);display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">✦</span>다양한 자기사용 방식 탐구 (different way)</li>
