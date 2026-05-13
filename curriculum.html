@@ -103,6 +103,8 @@
     strong { font-size: inherit !important; color: inherit; font-weight: 700; }
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
+    .mobile-break { display: none; }
+    @media (max-width: 768px) { .mobile-break { display: block; } }
       @media (max-width: 768px) {
       h1, h2, h3 { font-size: 26px !important; }
       p, li, span:not(.section-tag):not(.nav-cta) { font-size: 13px !important; }
@@ -182,10 +184,10 @@
     <div class="edu-col">
       <p style="font-size:1rem;font-weight:700;color:var(--green);margin-bottom:1rem;">교육 구성</p>
       <ul style="list-style:none;display:flex;flex-direction:column;gap:0;">
-        <li style="font-size:1rem;color:var(--mid);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;border-bottom:1px solid var(--border);"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span><span><strong>호흡편•척추편•골반편•어깨편</strong>으로 구성된 주요 부위의 기능적 움직임 학습</span></li>
+        <li style="font-size:1rem;color:var(--mid);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;border-bottom:1px solid var(--border);"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span><span><strong>호흡편•척추편•골반편•어깨편</strong>으로 구성된 주요<br class="mobile-break">부위의 기능적 움직임 학습</span></li>
         <li style="font-size:1rem;color:var(--mid);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;border-bottom:1px solid var(--border);"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span><span>소매틱 원리와 기능 해부학의 통합적 이해</span></li>
         <li style="font-size:1rem;color:var(--mid);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;border-bottom:1px solid var(--border);"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span><span>셀프 핸즈온 기법</span></li>
-        <li style="font-size:1rem;color:var(--mid);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;border-bottom:1px solid var(--border);"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span><span>펠든크라이스 메소드와 제레미크라우스 접근법 기반</span></li>
+        <li style="font-size:1rem;color:var(--mid);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;border-bottom:1px solid var(--border);"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span><span>펠든크라이스 메소드와 제레미크라우스 접근법<br class="mobile-break">기반</span></li>
         <li style="font-size:1rem;color:var(--mid);padding:.55rem 0;display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:.15em;">•</span><span><strong>K-소마틱스</strong>를 지향하며 독창적인 <strong>ARI practice</strong>와 <strong>ARI flow</strong> 개발</span></li>
       </ul>
     </div>
