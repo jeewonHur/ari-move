@@ -101,6 +101,9 @@
     strong { font-size: inherit !important; color: inherit; font-weight: 700; }
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
+    @media (max-width: 768px) {
+      .bottom-stats { flex-direction: column !important; gap: 0.4rem !important; }
+    }
       @media (max-width: 768px) {
       h1, h2, h3 { font-size: 26px !important; }
       p, li, span:not(.section-tag):not(.nav-cta) { font-size: 13px !important; }
@@ -174,9 +177,9 @@
         <li style="font-size:1rem;color:var(--dark);display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">✦</span>자연스러움과 자발성의 회복</li>
         <li style="font-size:1rem;color:var(--dark);display:flex;gap:.6rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;">✦</span>움직임을 통한 자유로움</li>
       </ul>
-      <div style="border-top:1px solid var(--border);padding-top:1rem;display:flex;gap:2rem;flex-wrap:wrap;">
-        <span style="font-size:1rem;color:var(--mid);">· <strong>주제별 3개 ARI flow</strong></span>
-        <span style="font-size:1rem;color:var(--mid);">· <strong>모듈 1 총 12개 영상 제공</strong></span>
+      <div class="bottom-stats" style="border-top:1px solid var(--border);padding-top:1rem;display:flex;gap:2rem;flex-wrap:wrap;">
+        <span style="font-size:1rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">· <strong>주제별 3개 ARI flow</strong></span>
+        <span style="font-size:1rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">· <strong>모듈 1 총 12개 영상 제공</strong></span>
       </div>
     </div>
   </div>
